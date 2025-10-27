@@ -39,7 +39,7 @@ export async function POST(req: Request) {
           name,
           signup_date: new Date().toISOString()
         },
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/verify-email`,
+        emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/email-confirmation`,
 
       },
     });

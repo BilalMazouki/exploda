@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Loader2, Eye, EyeOff, ArrowLeft, XCircle } from 'lucide-react'
+import { ModeToggle } from '../ThemeButton'
 
 export default function LoginPage() {
     const [formData, setFormData] = useState({
@@ -73,7 +74,8 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-custom-50 to-custom-100 dark:from-gray-900 dark:to-gray-800 px-4 py-8">
             <div className="w-full max-w-md">
-                <Button
+                <div className='flex justify-between relative'>
+                    <Button
                     asChild
                     variant="ghost"
                     className="mb-6 -ml-3 w-fit hover:bg-white/50 dark:hover:bg-gray-800/50 transition-all duration-300"
@@ -83,7 +85,10 @@ export default function LoginPage() {
                         Back to home
                     </Link>
                 </Button>
-
+                <div className='absolute right-0 top-1 z-15 mr-3'>
+                    <ModeToggle/>
+                </div>
+                </div>
                 <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-2xl border border-white/50 dark:border-gray-700/50 shadow-2xl shadow-black/10 overflow-hidden animate-in fade-in duration-500">
                     <div className="p-8">
                         <div className="text-center mb-8">

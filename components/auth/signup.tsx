@@ -34,7 +34,7 @@ export default function SignupPage() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    name: `${firstName} ${lastName}`.trim(),
+                    name: `${firstName} ${lastName.toUpperCase()}`.trim(),
                     email: formData.get('email'),
                     password: formData.get('pwd')
                 })
@@ -53,9 +53,7 @@ export default function SignupPage() {
 
             // Success case
             setSuccess(true)
-            setTimeout(() => {
-                router.push('/auth/verify-email')
-            }, 2000)
+
             
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unexpected error occurred')
@@ -80,7 +78,7 @@ export default function SignupPage() {
                             <Link href="/auth/login">Sign In</Link>
                         </Button>
                         <Button asChild>
-                            <Link href="/">Go Home</Link>
+                            <Link href={`/${process.env.NEXT_PUBLIC_LANDING_PAGE || ''}`}>Go Home</Link>
                         </Button>
                     </div>
                 </div>
@@ -113,7 +111,7 @@ export default function SignupPage() {
                                 aria-label="go home"
                                 className="mx-auto block w-fit transition-transform hover:scale-105 duration-300"
                             >
-                                <LogoIcon />
+                                {/* icon */}
                             </Link>
                             <h1 className="mb-2 mt-4 text-2xl font-bold bg-linear-to-r from-custom-600 to-custom-700 bg-clip-text text-transparent">
                                 Join {process.env.NEXT_PUBLIC_APP_NAME}
