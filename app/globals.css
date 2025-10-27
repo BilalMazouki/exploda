@@ -41,17 +41,17 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-custom-50: oklch(0.858 0.069 298.97);
-  --color-custom-100: oklch(0.713 0.146 299.3);
-  --color-custom-200: oklch(0.656 0.177 299.44);
-  --color-custom-300: oklch(0.601 0.207 299.41);
-  --color-custom-400: oklch(0.538 0.241 299.17);
-  --color-custom-500: oklch(0.476 0.212 299.34);
-  --color-custom-600: oklch(0.411 0.184 299.42);
-  --color-custom-700: oklch(0.347 0.154 299.67);
-  --color-custom-800: oklch(0.274 0.122 299.53);
-  --color-custom-900: oklch(0.21 0.094 299.6);
-  --color-custom-950: oklch(0.173 0.077 299.46);
+  --color-custom-50: oklch(0.965 0.02 74.65);
+  --color-custom-100: oklch(0.923 0.049 77.24);
+  --color-custom-200: oklch(0.856 0.113 82.67);
+  --color-custom-300: oklch(0.777 0.107 82.7);
+  --color-custom-400: oklch(0.701 0.097 82.94);
+  --color-custom-500: oklch(0.625 0.087 83.27);
+  --color-custom-600: oklch(0.526 0.073 83.3);
+  --color-custom-700: oklch(0.431 0.059 82.71);
+  --color-custom-800: oklch(0.337 0.047 83.23);
+  --color-custom-900: oklch(0.233 0.032 81.99);
+  --color-custom-950: oklch(0.187 0.025 80.93);
 }
 
 :root {

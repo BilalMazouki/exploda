@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     const { email, password, name } = parsed.data;
     const supabase = await createClient();
 
-    const { data, error } = await supabase.auth.signUp({
+    const { data : user, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -68,9 +68,17 @@ export async function POST(req: Request) {
         message: userMessage 
       }, { status: 400 });
     }
-
+    if(!error){
+      const {error , data } = await supabase.from('profiles').insert({
+        uuid : user.user?.id,
+        role : 'user',
+        name :user.user?.user_metadata.name, 
+      }
+      )
+    }
     // Check if email confirmation is required
-    if (data.user && data.user.identities && data.user.identities.length === 0) {
+    if (user.user && user.user.identities && user.user.identities.length === 0) {
+      
       return NextResponse.json({
         success: false,
         message: "An account with this email already exists. Please try signing in instead."
@@ -82,8 +90,8 @@ export async function POST(req: Request) {
       message: "Welcome aboard! We've sent a verification link to your email. Please check your inbox (and spam folder) to activate your account.",
       requiresVerification: true,
       user: {
-        id: data.user?.id,
-        email: data.user?.email
+        id: user.user?.id,
+        email: user.user?.email
       }
     }, { status: 201 });
 
