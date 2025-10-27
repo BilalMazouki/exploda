@@ -8,6 +8,7 @@ import { ArrowLeft, Eye, EyeOff, Loader2, CheckCircle2, XCircle } from 'lucide-r
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { ModeToggle } from '../ThemeButton'
 
 export default function SignupPage() {
     const [error, setError] = useState('')
@@ -74,9 +75,6 @@ export default function SignupPage() {
                         We've sent a verification link to your email. Please check your inbox to activate your account.
                     </p>
                     <div className="flex gap-3 justify-center">
-                        <Button asChild variant="outline">
-                            <Link href="/auth/login">Sign In</Link>
-                        </Button>
                         <Button asChild>
                             <Link href={`/${process.env.NEXT_PUBLIC_LANDING_PAGE || ''}`}>Go Home</Link>
                         </Button>
@@ -89,7 +87,8 @@ export default function SignupPage() {
     return (
         <section className="min-h-screen flex items-center justify-center bg-linear-to-br from-custom-50 to-custom-100 dark:from-gray-900 dark:to-gray-800 px-4 py-8">
             <div className="w-full max-w-md">
-                <Button
+                <div className='flex justify-between relative'>
+                    <Button
                     asChild
                     variant="ghost"
                     className="mb-6 -ml-3 w-fit hover:bg-white/50 dark:hover:bg-gray-800/50 transition-all duration-300"
@@ -99,7 +98,10 @@ export default function SignupPage() {
                         Back to home
                     </Link>
                 </Button>
-
+                <div className='absolute right-0 top-1 z-15 mr-3'>
+                    <ModeToggle/>
+                </div>
+                </div>
                 <form
                     onSubmit={handleSubmit}
                     className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-2xl border border-white/50 dark:border-gray-700/50 shadow-2xl shadow-black/10 overflow-hidden animate-in fade-in duration-500"
