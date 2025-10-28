@@ -109,7 +109,7 @@ export async function POST(req: Request) {
     if (!isPasswordStrong(sanitizedPassword)) {
       return NextResponse.json({
         success: false,
-        message: "Password is too weak. Please use a stronger password with at least 8 characters including uppercase, lowercase, numbers, and special characters."
+        message: "Password is too weak. Please use a stronger password with at least 8 characters including uppercase, lowercase and numbers"
       }, { status: 400 });
     }
 
