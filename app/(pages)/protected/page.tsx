@@ -1,13 +1,14 @@
-'use server'
-import { verifyUser } from '@/helpers/auth';
-import React from 'react'
+"use client";
+import { useUser } from '@/helpers/user';
+import { deflate } from 'zlib';
 
-const page = async () => {
-      const { user, response } = await verifyUser('admin');
-      if (!user) return <div>{response.status}</div>;
-  return (
-    <div>this page is only for admin</div>
-  )
+function MyComponent() {
+  const { user, loading, error } = useUser();
+  
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!user) return <div>Please log in</div>;
+  
+  return <div>Welcome, {user.user_metadata.name}!</div>;
 }
-
-export default page
+export default MyComponent

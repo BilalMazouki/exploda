@@ -1,6 +1,15 @@
 // app/api/auth/logout/route.ts
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
+import { clearAuthCookies } from "@/lib/authCookies"; // Your existing function
+
+// Security headers function
+function securityHeaders(res: NextResponse) {
+  res.headers.set("X-Content-Type-Options", "nosniff");
+  res.headers.set("X-Frame-Options", "DENY");
+  res.headers.set("Referrer-Policy", "no-referrer");
+  return res;
+}
 
 export async function POST() {
   try {
@@ -21,7 +30,9 @@ export async function POST() {
       );
     }
 
-    // Clear cookies with explicit expiration
+    // USE YOUR EXISTING CLEARAUTHCOOKIES FUNCTION
+    const { accessCookie, refreshCookie } = clearAuthCookies();
+    
     const res = NextResponse.json(
       { 
         success: true,
@@ -30,16 +41,10 @@ export async function POST() {
       { status: 200 }
     );
     
-    res.headers.append(
-      "Set-Cookie",
-      `access_token=; Path=/; HttpOnly; Secure; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:00 GMT`
-    );
-    res.headers.append(
-      "Set-Cookie",
-      `refresh_token=; Path=/; HttpOnly; Secure; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:00 GMT`
-    );
+    res.headers.append("Set-Cookie", accessCookie);
+    res.headers.append("Set-Cookie", refreshCookie);
 
-    return res;
+    return securityHeaders(res);
     
   } catch (err) {
     console.error("Logout exception:", err);

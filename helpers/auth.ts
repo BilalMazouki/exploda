@@ -1,7 +1,35 @@
+// helpers/auth.ts
 import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { authCookies } from "@/lib/authCookies";
 import { NextResponse } from "next/server";
+
+// Rate limiting for auth verification
+const authAttempts = new Map<string, { count: number; lastAttempt: number }>();
+
+function checkAuthRateLimit(identifier: string): boolean {
+  const now = Date.now();
+  const attemptData = authAttempts.get(identifier);
+  const windowMs = 5 * 60 * 1000; // 5 minutes
+  
+  if (attemptData && now - attemptData.lastAttempt > windowMs) {
+    authAttempts.delete(identifier);
+    return true;
+  }
+  
+  if (!attemptData) {
+    authAttempts.set(identifier, { count: 1, lastAttempt: now });
+    return true;
+  }
+  
+  if (attemptData.count > 10) { // 10 attempts per 5 minutes
+    return false;
+  }
+  
+  attemptData.count++;
+  attemptData.lastAttempt = now;
+  return true;
+}
 
 /**
  * Verify user authentication & optionally role.
@@ -12,8 +40,14 @@ export async function verifyUser(requiredRole?: string) {
   const accessToken = cookieStore.get("access_token")?.value;
   const refreshToken = cookieStore.get("refresh_token")?.value;
 
+  // Rate limiting by tokens to prevent brute force
+  const clientIdentifier = accessToken?.substring(0, 10) || 'unknown';
+  if (!checkAuthRateLimit(clientIdentifier)) {
+    return { user: null, response: unauthorized("Too many authentication attempts") };
+  }
+
   if (!accessToken) {
-    return { user: null, response: unauthorized("No access token found") };
+    return { user: null, response: unauthorized("Authentication required") };
   }
 
   const supabase = await createClient();
@@ -24,7 +58,7 @@ export async function verifyUser(requiredRole?: string) {
   if (error || !userData?.user) {
     // try to refresh if access token expired
     if (!refreshToken) {
-      return { user: null, response: unauthorized("No refresh token found") };
+      return { user: null, response: unauthorized("Session expired. Please log in again.") };
     }
 
     const { data: refreshed, error: refreshError } = await supabase.auth.refreshSession({
@@ -35,6 +69,7 @@ export async function verifyUser(requiredRole?: string) {
       return { user: null, response: unauthorized("Session expired. Please log in again.") };
     }
 
+    // USE YOUR EXISTING AUTHCOOKIES FUNCTION
     const { accessCookie, refreshCookie } = authCookies(
       refreshed.session.access_token,
       refreshed.session.refresh_token
