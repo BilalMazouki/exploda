@@ -2,29 +2,16 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/utils/supabase/server";
-import { authCookies } from "@/lib/authCookies";
 
 // Rate limiting storage (in production, use Redis instead)
 const loginAttempts = new Map<string, { count: number; lastAttempt: number }>();
-
-// Common passwords to block
-const commonPasswords = [
-  '123456', 'password', '12345678', 'qwerty', '123456789', 
-  '12345', '1234', '111111', '1234567', 'dragon', 
-  '123123', 'baseball', 'abc123', 'football', 'monkey',
-  'letmein', 'shadow', 'master', '666666', 'qwertyuiop',
-  '123321', 'mustang', '1234567890', 'michael', '654321',
-  'superman', '1qaz2wsx', '7777777', 'fuckyou', '121212'
-];
 
 const loginSchema = z.object({
   email: z.string()
     .email({ message: "Please enter a valid email address" })
     .transform(s => s.toLowerCase().trim())
     .refine(email => email.length <= 100, "Email is too long"),
-  password: z.string()
-    .min(1, { message: "Password is required" })
-    .refine(pass => pass.length <= 100, "Password is too long"),
+  password: z.string().min(1, "Password required").max(100)
 });
 
 function securityHeaders(res: NextResponse) {
@@ -68,13 +55,6 @@ function checkRateLimit(identifier: string, maxAttempts: number = 5, windowMs: n
   return { allowed: true, remaining: maxAttempts - attemptData.count };
 }
 
-// Password strength check
-function isPasswordStrong(password: string): boolean {
-  if (commonPasswords.includes(password.toLowerCase())) return false;
-  if (password.length < 8) return false;
-  return true;
-}
-
 
 export async function POST(req: Request) {
   try {
@@ -94,15 +74,6 @@ export async function POST(req: Request) {
     
     // Sanitize inputs
     const sanitizedEmail = sanitizeInput(email);
-    const sanitizedPassword = sanitizeInput(password);
-    
-    // Check password strength
-    if (!isPasswordStrong(sanitizedPassword)) {
-      return NextResponse.json({ 
-        success: false,
-        message: "Please use a stronger password" 
-      }, { status: 400 });
-    }
 
     // Rate limiting by IP
     const clientIp = req.headers.get('x-forwarded-for') || 'unknown';
@@ -119,7 +90,7 @@ export async function POST(req: Request) {
 
     const { data, error } = await supabase.auth.signInWithPassword({ 
       email: sanitizedEmail, 
-      password: sanitizedPassword 
+      password: password 
     });
     
     if (error) {
@@ -139,7 +110,7 @@ export async function POST(req: Request) {
             userMessage = "Network connection issue. Please check your internet and try again.";
           }
       }
-
+      await new Promise(res => setTimeout(res, 150));
       return NextResponse.json({ 
         success: false,
         message: userMessage,
@@ -149,6 +120,7 @@ export async function POST(req: Request) {
 
     // Check if email is verified
     if (!data.user?.email_confirmed_at) {
+      await new Promise(res => setTimeout(res, 150));
       return NextResponse.json({ 
         success: false,
         message: "Please verify your email address before signing in. We've sent a verification link to your email.",
@@ -156,26 +128,11 @@ export async function POST(req: Request) {
       }, { status: 403 });
     }
 
-    const accessToken = data.session?.access_token;
-    const refreshToken = data.session?.refresh_token;
-
-    if (!accessToken || !refreshToken) {
-      return NextResponse.json({ 
-        success: false,
-        message: "We encountered an issue creating your session. Please try signing in again." 
-      }, { status: 401 });
-    }
-
-    // USE YOUR EXISTING AUTHCOOKIES FUNCTION
-    const { accessCookie, refreshCookie } = authCookies(accessToken, refreshToken);
-    
     const res = NextResponse.json({ 
       success: true,
       message: "Welcome back! You've been successfully signed in." 
     }, { status: 200 });
     
-    res.headers.append("Set-Cookie", accessCookie);
-    res.headers.append("Set-Cookie", refreshCookie);
 
     // Clear rate limit on successful login
     loginAttempts.delete(`${sanitizedEmail}_${clientIp}`);
@@ -190,7 +147,7 @@ export async function POST(req: Request) {
     if (err.message?.includes("JSON")) {
       userMessage = "Invalid request format. Please try refreshing the page.";
     }
-
+    
     return NextResponse.json({ 
       success: false,
       message: userMessage 

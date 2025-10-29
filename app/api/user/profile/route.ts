@@ -27,7 +27,7 @@ export async function GET() {
       id: user.id,
       email: user.email,
       email_confirmed_at: user.email_confirmed_at,
-      user_metadata: user.user_metadata,
+      metadata: user.user_metadata,
       profile: profile || null,
       last_sign_in_at: user.last_sign_in_at,
       created_at: user.created_at

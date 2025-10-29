@@ -52,6 +52,13 @@ function isPasswordStrong(password: string): boolean {
   if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) return false;
   return true;
 }
+function securityHeaders(res: NextResponse) {
+  res.headers.set("X-Content-Type-Options", "nosniff");
+  res.headers.set("X-Frame-Options", "DENY");
+  res.headers.set("Referrer-Policy", "no-referrer");
+  res.headers.set("Cross-Origin-Opener-Policy", "same-origin");
+  return res;
+}
 
 const signupSchema = z.object({
   email: z.string()
@@ -91,7 +98,6 @@ export async function POST(req: Request) {
     
     // Sanitize inputs
     const sanitizedEmail = sanitizeInput(email);
-    const sanitizedPassword = sanitizeInput(password);
     const sanitizedName = sanitizeInput(name);
 
     // Rate limiting for signup
@@ -106,7 +112,7 @@ export async function POST(req: Request) {
     }
 
     // Additional password strength check
-    if (!isPasswordStrong(sanitizedPassword)) {
+    if (!isPasswordStrong(password)) {
       return NextResponse.json({
         success: false,
         message: "Password is too weak. Please use a stronger password with at least 8 characters including uppercase, lowercase and numbers"
@@ -117,7 +123,7 @@ export async function POST(req: Request) {
 
     const { data: user, error } = await supabase.auth.signUp({
       email: sanitizedEmail,
-      password: sanitizedPassword,
+      password: password,
       options: {
         data: { 
           name: sanitizedName,
@@ -176,7 +182,7 @@ export async function POST(req: Request) {
       }, { status: 409 });
     }
 
-    return NextResponse.json({
+    return securityHeaders( NextResponse.json({
       success: true,
       message: "Welcome aboard! We've sent a verification link to your email. Please check your inbox (and spam folder) to activate your account.",
       requiresVerification: true,
@@ -184,7 +190,8 @@ export async function POST(req: Request) {
         id: user.user?.id,
         email: user.user?.email
       }
-    }, { status: 201 });
+    }, { status: 201 }))
+
 
   } catch (err: any) {
     console.error("Signup error:", err);
