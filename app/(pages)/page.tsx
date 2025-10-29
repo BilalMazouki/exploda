@@ -8,7 +8,7 @@ const page = async () => {
 
   return (
     <div>
-      <HeroHeader/>
+     hello
     </div>
   )
 }
