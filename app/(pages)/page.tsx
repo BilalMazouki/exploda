@@ -9,6 +9,7 @@ const page = async () => {
   return (
     <div>
       HI
+     hello there
     </div>
   )
 }
