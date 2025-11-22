@@ -35,7 +35,7 @@ export function useUser() {
         setUser(data.user);
       } else {
         setUser(null);
-        if (response.status !== 401) { // Don't treat 401 as error
+        if (response.status !== 401) { 
           setError(data.message || "Failed to fetch user");
         }
       }
