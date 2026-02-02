@@ -1,5 +1,4 @@
 import { ModeToggle } from '@/components/ThemeButton'
-import { HeroHeader } from '@/components/header'
 import LoginPage from '@/components/auth/login'
 import React from 'react'
 
