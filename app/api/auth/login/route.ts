@@ -71,7 +71,6 @@ export async function POST(req: Request) {
     }
 
     const { email, password } = parsed.data;
-    
     // Sanitize inputs
     const sanitizedEmail = sanitizeInput(email);
 

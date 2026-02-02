@@ -33,7 +33,7 @@ export default function AddDesignModal({
       formData.append("description", description);
       files.forEach((file) => formData.append("images", file));
 
-      const resp = await fetch("/api/upload", {
+      const resp = await fetch("/api/designs", {
         method: "POST",
         body: formData,
       });

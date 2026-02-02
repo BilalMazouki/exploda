@@ -1,27 +1,103 @@
-import { NextResponse } from "next/server";
-import z, { any } from "zod";
+  import { NextResponse } from "next/server";
+  import { z } from "zod";
+  import sanitizeHtml from "sanitize-html";
+  import { createClient } from "@/utils/supabase/server";
 
-export async function GET(request: Request) {
-  return NextResponse.json({ message: "Designs loaded successfully" });
+
+  /* ---------------- VALIDATION ---------------- */
+
+  const postSchema = z.object({
+    title: z.string().min(1).max(120),
+
+    description: z
+      .string()
+      .min(1)
+      .max(20_000)
+      .refine(v => !/<script|iframe|object|embed/i.test(v), {
+        message: "Invalid HTML",
+      })
+      .refine(v => v.replace(/<[^>]+>/g, "").trim().length > 10, {
+        message: "Empty content",
+      }),
+
+   images: z.array(
+  z.instanceof(File)
+   .refine(f => f.size <= 5 * 1024 * 1024)
+   .refine(f => ["image/png","image/jpeg","image/webp"].includes(f.type))
+).min(1)
+
+  });
+
+  /* ---------------- SANITIZER ---------------- */
+
+  function sanitizeTipTap(html: string) {
+    return sanitizeHtml(html, {
+      allowedTags: [
+        "p","b","strong","i","em","u",
+        "h1","h2","h3",
+        "ul","ol","li",
+        "blockquote","code","pre",
+        "a","br"
+      ],
+      allowedAttributes: {
+        a: ["href", "target", "rel"],
+      },
+    });
+  }
+
+  /* ---------------- POST HANDLER ---------------- */
+
+export async function POST(req: Request) {
+  const form = await req.formData();
+
+  const raw = {
+    title: form.get("title"),
+    description: form.get("description"),
+    images: form.getAll("images"),
+  };
+
+  const schema = z.object({
+    title: z.string().min(1).max(120),
+
+    description: z.string().min(1).max(20_000),
+
+    images: z.array(
+      z.instanceof(File)
+        .refine(f => f.size <= 5 * 1024 * 1024)
+        .refine(f =>
+          ["image/png","image/jpeg","image/webp"].includes(f.type)
+        )
+    ).min(1),
+  });
+
+  const parsed = schema.safeParse(raw);
+
+  if (!parsed.success) {
+    console.log(parsed.error.flatten());
+    return NextResponse.json({ errors: parsed.error.flatten() }, { status: 400 });
+  }
+
+  const supabase = await createClient();
+
+  const uploadedUrls = [];
+
+  for (const image of parsed.data.images) {
+    const path = `posts/${crypto.randomUUID()}.${image.name.split(".").pop()}`;
+
+    const {error} =   await supabase.storage.from("images").upload(path, image);
+    const { data } = supabase.storage.from("images").getPublicUrl(path);
+    console.log(error);
+    uploadedUrls.push(data.publicUrl);
+  }
+
+  const cleanDescription = sanitizeTipTap(parsed.data.description);
+
+  await supabase.from("posts").insert({
+    title: parsed.data.title,
+    description: cleanDescription,
+    images: uploadedUrls,
+  });
+
+  return NextResponse.json({ success: true });
 }
-const designValidationSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  images : z.array(z.string().url("Each image must be a valid URL")).min(1, "At least one image is required"),
-  description: z.string().min(1, "Description is required"),
-});
-export async function POST(request: Request) {
-     try {
-        const body = await request.json();
-        const { success, data, error } = designValidationSchema.safeParse(body);
 
-        if (!success) {
-          return NextResponse.json({ message: "Invalid design data", errors: error.issues }, { status: 400 });
-        }
-
-        const { title, description, images } = data;
-
-    } catch (error : any) {
-      return NextResponse.json({ message: "Failed to create design", error: error.message }, { status: 500 });
-    }
-  return NextResponse.json({ message: "Design created successfully" });
-}
