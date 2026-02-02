@@ -1,16 +1,30 @@
 "use client";
 import { useState } from "react";
-import { BellIcon, MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { BellIcon, MagnifyingGlassIcon, UserCircleIcon, Bars3Icon } from "@heroicons/react/24/outline";
 
-export default function Navbar() {
+
+
+interface NavbarProps {
+  onOpenSidebar?: () => void;
+}
+
+export default function Navbar({ onOpenSidebar }: NavbarProps) {
   const [search, setSearch] = useState("");
   // For demo, unread notifications fixed at 2
   const unreadNotifications = 2;
   // You'd fetch user data in a real app!
-  const user = { name: "Jane Doe", avatar: "" };
+  const user = { name: "jassem sabri", avatar: "" };
 
   return (
     <nav className="flex items-center justify-between px-8 py-4 bg-white/80 backdrop-blur-lg shadow sticky top-0 z-40">
+      {/* Hamburger for mobile */}
+      <button
+        className="md:hidden mr-4 p-2 rounded hover:bg-gray-200 transition"
+        onClick={onOpenSidebar}
+        aria-label="Open sidebar"
+      >
+        <Bars3Icon className="w-7 h-7 text-gray-700" />
+      </button>
       {/* Search */}
       <form className="flex-1 max-w-md mr-4">
         <div className="relative">

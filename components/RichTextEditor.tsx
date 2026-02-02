@@ -3,7 +3,6 @@ import React from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Heading from "@tiptap/extension-heading";
-import Color from "@tiptap/extension-color";
 import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
 import Subscript from "@tiptap/extension-subscript";
@@ -13,7 +12,6 @@ import {
     Bars3Icon,
     Bars3BottomRightIcon,
 } from "@heroicons/react/24/outline";
-import { TextStyle } from "@tiptap/extension-text-style";
 
 interface RichTextEditorProps {
     content: string;
@@ -29,12 +27,9 @@ export default function RichTextEditor({
     const editor = useEditor({
         extensions: [
             StarterKit,
-            Heading,
-            TextStyle,
-            Color,
-            Underline,
-            Subscript,
-            Superscript,
+            Heading.configure({
+                levels: [1, 2, 3],
+            }),
             TextAlign.configure({
                 types: ["heading", "paragraph"],
             }),
@@ -46,7 +41,7 @@ export default function RichTextEditor({
         },
         editorProps: {
             attributes: {
-                class: "prose prose-sm max-w-none p-4 focus:outline-none min-h-[300px] bg-white",
+                class: "max-w-none p-4 focus:outline-none min-h-[300px] bg-white",
                 placeholder: placeholder,
             },
         },
@@ -66,29 +61,38 @@ export default function RichTextEditor({
     };
 
     return (
-        <div className="border border-gray-200 rounded-xl overflow-hidden bg-white">
+        <div className="border h-75 border-gray-200 rounded-xl overflow-hidden bg-white">
             {/* Toolbar */}
-            <div className="border-b border-gray-200 p-3 bg-gray-50 flex flex-wrap gap-2 items-center">
-                {/* Text Color Picker */}
-                <input
-                    type="color"
-                    title="Text Color"
-                    className="w-8 h-8 p-0 border border-gray-300 rounded cursor-pointer mr-2"
-                    onChange={e => editor?.chain().focus().setColor(e.target.value).run()}
-                    value={editor?.getAttributes('textStyle').color || '#000000'}
-                    style={{ verticalAlign: 'middle' }}
-                />
-                {/* Heading Dropdown */}
-                <select
-                    onChange={handleHeadingChange}
-                    className="px-3 py-1.5 border border-gray-300 rounded text-sm bg-white hover:bg-gray-50 focus:ring-2 focus:ring-purple-400 cursor-pointer"
-                    defaultValue="0"
+            <div className="border-b border-gray-200 p-3 bg-gray-50 flex flex-wrap justify-center gap-2 items-center">
+                {/* Heading Buttons */}
+                <button
+                    type="button"
+                    onClick={() => editor?.chain().focus().setParagraph().run()}
+                    className={`px-3 py-1.5 border border-gray-300 rounded text-sm bg-white hover:bg-gray-50 focus:ring-2 focus:ring-purple-400 cursor-pointer ${editor?.isActive('paragraph') ? 'bg-purple-100 text-purple-700' : ''}`}
                 >
-                    <option value="0">Normal</option>
-                    <option value="1">Heading 1</option>
-                    <option value="2">Heading 2</option>
-                    <option value="3">Heading 3</option>
-                </select>
+                    Normal
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor?.chain().focus().setHeading({ level: 1 }).run()}
+                    className={`px-3 py-1.5 border border-gray-300 rounded text-sm bg-white hover:bg-gray-50 focus:ring-2 focus:ring-purple-400 cursor-pointer ${editor?.isActive('heading', { level: 1 }) ? 'bg-purple-100 text-purple-700' : ''}`}
+                >
+                    H1
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor?.chain().focus().setHeading({ level: 2 }).run()}
+                    className={`px-3 py-1.5 border border-gray-300 rounded text-sm bg-white hover:bg-gray-50 focus:ring-2 focus:ring-purple-400 cursor-pointer ${editor?.isActive('heading', { level: 2 }) ? 'bg-purple-100 text-purple-700' : ''}`}
+                >
+                    H2
+                </button>
+                <button
+                    type="button"
+                    onClick={() => editor?.chain().focus().setHeading({ level: 3 }).run()}
+                    className={`px-3 py-1.5 border border-gray-300 rounded text-sm bg-white hover:bg-gray-50 focus:ring-2 focus:ring-purple-400 cursor-pointer ${editor?.isActive('heading', { level: 3 }) ? 'bg-purple-100 text-purple-700' : ''}`}
+                >
+                    H3
+                </button>
 
                 <div className="w-px h-6 bg-gray-300" />
 
@@ -172,31 +176,6 @@ export default function RichTextEditor({
 
                 <div className="w-px h-6 bg-gray-300" />
 
-                {/* Lists */}
-                <button
-                    type="button"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        editor?.chain().focus().toggleBulletList().run();
-                    }}
-                    className={`px-3 py-1.5 rounded text-sm hover:bg-gray-200 transition ${editor?.isActive("bulletList") ? "bg-purple-100 text-purple-700" : ""
-                        }`}
-                    title="Bullet List"
-                >
-                    • List
-                </button>
-                <button
-                    type="button"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        editor?.chain().focus().toggleOrderedList().run();
-                    }}
-                    className={`px-3 py-1.5 rounded text-sm hover:bg-gray-200 transition ${editor?.isActive("orderedList") ? "bg-purple-100 text-purple-700" : ""
-                        }`}
-                    title="Numbered List"
-                >
-                    1. List
-                </button>
 
                 <div className="w-px h-6 bg-gray-300" />
 

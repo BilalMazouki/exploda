@@ -29,12 +29,12 @@ export default function DesignDetailPage() {
     );
   }
 
-  // Mock multiple images for slider demo (in real app, design would have multiple imageUrls)
-  const images = [
-    design.imageUrl,
-    "https://source.unsplash.com/800x600/?design,ui",
-    "https://source.unsplash.com/800x600/?design,web",
-  ].filter(Boolean) as string[];
+  // Use images array from mockDesigns, fallback to imageUrl if images doesn't exist
+  const images = design.images && design.images.length > 0
+    ? design.images
+    : design.imageUrl
+      ? [design.imageUrl]
+      : [];
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
@@ -65,51 +65,52 @@ export default function DesignDetailPage() {
         </h1>
 
         {/* Image Slider */}
-        <div className="relative w-full h-[500px] bg-white rounded-3xl shadow-2xl overflow-hidden mb-8 group">
-          <img
-            src={images[currentImageIndex]}
-            alt={`${design.title} - image ${currentImageIndex + 1}`}
-            className="w-full h-full object-cover"
-          />
+        {images.length > 0 && (
+          <div className="relative w-full h-[500px] bg-white rounded-3xl shadow-2xl overflow-hidden mb-8 group">
+            <img
+              src={images[currentImageIndex]}
+              alt={`${design.title} - image ${currentImageIndex + 1}`}
+              className="w-full h-full object-cover"
+            />
 
-          {/* Navigation Arrows */}
-          {images.length > 1 && (
-            <>
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition opacity-0 group-hover:opacity-100"
-                aria-label="Previous image"
-              >
-                <ChevronLeftIcon className="w-6 h-6 text-gray-800" />
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition opacity-0 group-hover:opacity-100"
-                aria-label="Next image"
-              >
-                <ChevronRightIcon className="w-6 h-6 text-gray-800" />
-              </button>
-            </>
-          )}
-
-          {/* Dots Indicator */}
-          {images.length > 1 && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-              {images.map((_, idx) => (
+            {/* Navigation Arrows */}
+            {images.length > 1 && (
+              <>
                 <button
-                  key={idx}
-                  onClick={() => setCurrentImageIndex(idx)}
-                  className={`w-2.5 h-2.5 rounded-full transition ${
-                    idx === currentImageIndex
-                      ? "bg-white w-8"
-                      : "bg-white/50 hover:bg-white/75"
-                  }`}
-                  aria-label={`Go to image ${idx + 1}`}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+                  onClick={prevImage}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition opacity-0 group-hover:opacity-100"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeftIcon className="w-6 h-6 text-gray-800" />
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition opacity-0 group-hover:opacity-100"
+                  aria-label="Next image"
+                >
+                  <ChevronRightIcon className="w-6 h-6 text-gray-800" />
+                </button>
+              </>
+            )}
+
+            {/* Dots Indicator */}
+            {images.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                {images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImageIndex(idx)}
+                    className={`w-2.5 h-2.5 rounded-full transition ${idx === currentImageIndex
+                        ? "bg-white w-8"
+                        : "bg-white/50 hover:bg-white/75"
+                      }`}
+                    aria-label={`Go to image ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Description Section */}
         <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl p-10 border border-gray-100">
@@ -146,11 +147,10 @@ export default function DesignDetailPage() {
 
         {/* Call to Action (optional) */}
         <div className="mt-10 flex gap-4 justify-center">
-          <button className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white font-semibold shadow-lg hover:scale-105 transition">
-            Contact Me
-          </button>
           <button className="px-8 py-3 rounded-full border-2 border-purple-500 text-purple-600 font-semibold hover:bg-purple-50 transition">
-            View More Designs
+            <a href="/designs" >
+              View More Designs
+            </a>
           </button>
         </div>
       </div>

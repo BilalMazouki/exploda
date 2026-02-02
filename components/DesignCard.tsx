@@ -10,8 +10,8 @@ export type Design = {
 
 export default function DesignCard({ design }: { design: Design }) {
   return (
-    <div className="rounded-2xl border bg-white/80 p-4 shadow-xl transition hover:shadow-2xl hover:-translate-y-1">
-      <div className="h-44 w-full rounded-xl bg-gradient-to-r from-purple-100 to-fuchsia-100 mb-3 flex items-center justify-center overflow-hidden">
+    <div className="relative rounded-2xl border bg-white/80 p-4 shadow-xl transition hover:shadow-2xl hover:-translate-y-1 h-90">
+      <div className="w-full rounded-xl bg-gradient-to-r from-purple-100 to-fuchsia-100 mb-3 flex items-center justify-center overflow-hidden h-40">
         {design.imageUrl ? (
           <img src={design.imageUrl} alt={design.title} className="object-cover w-full h-full rounded-xl" />
         ) : (
@@ -23,7 +23,7 @@ export default function DesignCard({ design }: { design: Design }) {
       <div className="mt-4 flex justify-end">
         <Link
           href={`/designs/${design.id}`}
-          className="rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 px-5 py-2 text-sm font-semibold text-white shadow hover:scale-105 transition"
+          className="absolute right-2 bottom-2 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 px-5 py-2 text-sm font-semibold text-white shadow hover:scale-105 transition"
         >
           View Post
         </Link>

@@ -47,8 +47,8 @@ export default function AddDesignModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm overflow-y-auto py-8">
-      <div className="relative w-full max-w-4xl rounded-2xl bg-white shadow-2xl p-8 my-8">
+    <div className="fixed  inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm overflow-y-auto py-8">
+      <div className="relative w-full h-screen max-w-4xl rounded-2xl bg-white shadow-2xl p-8 my-8">
         <h2 className="mb-5 text-2xl font-bold text-gray-900 flex items-center gap-2">
           <span className="inline-block w-6 h-6 bg-gradient-to-r from-purple-400 to-fuchsia-400 rounded-lg mr-2"></span>
           Add New Design
