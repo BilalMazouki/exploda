@@ -1,76 +1,168 @@
 "use client";
 
-import DesignCard from "@/components/DesignCard";
-import { Design } from "@/lib/designsStore";
-import { getDesigns } from "@/lib/designsStore";
+import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { ChevronLeftIcon, ChevronRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { getDesignById, Design } from "@/lib/designsStore";
 
-export default function DesignsListPage() {
-  const [designs, setDesigns] = useState<Design[]>([]);
+export default function DesignDetailPage() {
+  const params = useParams();
+  const router = useRouter();
+  const id = params.id as string;
+  
+  const [design, setDesign] = useState<Design | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // 🔴 This calls getDesigns() which will use your API
-  const loadDesigns = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const loadedDesigns = await getDesigns();
-      setDesigns(loadedDesigns);
-      setLoading(false);
-    } catch (err: any) {
-      setError(err.message || "Something went wrong.");
+  // 🔴 Fetch design by ID from API
+  useEffect(() => {
+    async function fetchDesign() {
+      setLoading(true);
+      const fetchedDesign = await getDesignById(id);
+      console.log("Fetched design:", fetchedDesign); // Debug log
+      console.log("Blog content:", fetchedDesign?.blog); // Debug log
+      setDesign(fetchedDesign);
       setLoading(false);
     }
+    fetchDesign();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-fuchsia-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading design...</p>
+        </div>
+      </main>
+    );
+  }
+
+  if (!design) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-fuchsia-50">
+        <div className="text-center">
+          <p className="text-2xl text-gray-600 mb-4">Design not found</p>
+          <button
+            onClick={() => router.back()}
+            className="px-6 py-2 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white font-semibold hover:scale-105 transition"
+          >
+            Go Back
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  const images = design.images && design.images.length > 0
+    ? design.images
+    : design.imageUrl
+      ? [design.imageUrl]
+      : [];
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
   };
 
-  useEffect(() => {
-    loadDesigns();
-  }, []);
-
-  const SKELETONS = Array.from({ length: 6 });
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
-    <main className="max-w-6xl mx-auto px-6 py-8">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">All Designs</h1>
+    <main className="min-h-screen bg-linear-to-br from-purple-50 via-white to-fuchsia-50">
+      {/* Header / Back Button */}
+      <div className="max-w-6xl mx-auto px-6 py-6">
         <button
-          onClick={loadDesigns}
-          className="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition"
+          onClick={() => router.back()}
+          className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition font-medium"
         >
-          Refresh
+          <ArrowLeftIcon className="w-5 h-5" />
+          Back to Designs
         </button>
       </div>
-      
-      {loading ? (
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
-          {SKELETONS.map((_, i) => (
-            <div
-              key={i}
-              className="rounded-2xl border bg-white/60 animate-pulse p-4 shadow-xl"
-            >
-              <div className="h-44 w-full rounded-xl bg-gray-200 mb-3" />
-              <div className="h-6 w-2/3 bg-gray-200 rounded-lg mb-2" />
-              <div className="h-4 w-1/2 bg-gray-200 rounded-lg mb-1" />
-              <div className="h-8 w-1/4 bg-gray-200 rounded-full mt-3" />
+
+      {/* Main Content */}
+      <div className="max-w-6xl mx-auto px-6 pb-16">
+        {/* Title */}
+        <h1 className="text-5xl font-extrabold text-gray-900 mb-4 bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-fuchsia-600">
+          {design.title}
+        </h1>
+
+        {/* Image Slider */}
+        {images.length > 0 && (
+          <div className="relative w-full h-[500px] bg-white rounded-3xl shadow-2xl overflow-hidden mb-8 group">
+            <img
+              src={images[currentImageIndex]}
+              alt={`${design.title} - image ${currentImageIndex + 1}`}
+              className="w-full h-full object-cover"
+            />
+
+            {/* Navigation Arrows */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={prevImage}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition opacity-0 group-hover:opacity-100"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeftIcon className="w-6 h-6 text-gray-800" />
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition opacity-0 group-hover:opacity-100"
+                  aria-label="Next image"
+                >
+                  <ChevronRightIcon className="w-6 h-6 text-gray-800" />
+                </button>
+              </>
+            )}
+
+            {/* Image Counter */}
+            {images.length > 1 && (
+              <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm font-medium">
+                {currentImageIndex + 1} / {images.length}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Blog Content with TipTap styling */}
+        <div className="bg-white rounded-3xl shadow-xl p-8 mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Blog</h2>
+          {design.blog ? (
+            <div 
+              className="tiptap-editor"
+              dangerouslySetInnerHTML={{ __html: design.blog }}
+            />
+          ) : (
+            <div className="space-y-4">
+              <p className="text-red-600 font-semibold">⚠️ No blog content available</p>
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <p className="text-sm text-gray-700">
+                  <strong>Debug Info:</strong>
+                </p>
+                <p className="text-xs text-gray-600 mt-2">
+                  Blog field is: {design.blog === undefined ? 'undefined' : design.blog === null ? 'null' : 'empty string'}
+                </p>
+                <p className="text-xs text-gray-600 mt-1">
+                  This post was likely created before the blog field was added.
+                </p>
+              </div>
             </div>
-          ))}
+          )}
         </div>
-      ) : error ? (
-        <div className="p-8 bg-red-50 text-red-600 rounded-xl">
-          <span className="font-semibold">Error:</span> {error}
-        </div>
-      ) : designs.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">
-          <p className="text-lg">No designs yet. Create your first one!</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
-          {designs.map((design) => (
-            <DesignCard key={design.id} design={design} />
-          ))}
-        </div>
-      )}
+
+        {/* Metadata */}
+        {design.createdAt && (
+          <div className="text-center text-gray-500 text-sm">
+            Created on {new Date(design.createdAt).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </div>
+        )}
+      </div>
     </main>
   );
 }

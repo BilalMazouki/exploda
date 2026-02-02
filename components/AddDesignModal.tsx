@@ -13,6 +13,7 @@ export default function AddDesignModal({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [blog, setBlog] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -34,12 +35,27 @@ export default function AddDesignModal({
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", description);
+      formData.append("blog", blog);
       files.forEach((file) => formData.append("images", file));
+      
       const resp = await fetch("/api/designs", {
         method: "POST",
         body: formData,
       });
+      
       if (!resp.ok) throw new Error("Upload failed.");
+      
+      // Reset form
+      setTitle("");
+      setDescription("");
+      setBlog("");
+      setFiles([]);
+      setPreviews([]);
+      
+      // Call success callback to refresh the designs list
+      onSuccess?.();
+      
+      // Close modal
       onClose();
     } catch (err: any) {
       setError(err.message || "Upload failed.");
@@ -113,12 +129,29 @@ export default function AddDesignModal({
 
             <div>
               <label className="mb-2 block text-sm font-medium text-gray-700">
-                Description
+                Description (Preview)
+              </label>
+              <textarea
+                className="w-full rounded-xl border border-gray-200 px-4 py-2 text-sm bg-white focus:ring-2 focus:ring-purple-400 transition min-h-[100px] resize-none"
+                placeholder="Short description that will appear on the design card..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+                maxLength={300}
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                {description.length}/300 characters
+              </p>
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-700">
+                Blog Content
               </label>
               <RichTextEditor
-                content={description}
-                onChange={setDescription}
-                placeholder="Describe your design in detail..."
+                content={blog}
+                onChange={setBlog}
+                placeholder="Write your detailed blog content here..."
               />
             </div>
 
@@ -146,7 +179,7 @@ export default function AddDesignModal({
             <button
               type="submit"
               form="design-form"
-              disabled={uploading || !title.trim()}
+              disabled={uploading || !title.trim() || !description.trim() || !blog.trim()}
               className="rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 px-8 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {uploading ? "Saving..." : "Save Post"}

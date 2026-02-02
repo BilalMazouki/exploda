@@ -128,7 +128,7 @@ export default function DesignDetailPage() {
         <div className="bg-white rounded-3xl shadow-xl p-8 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Description</h2>
           <div 
-            className="tiptap-editor prose prose-lg  max-w-none"
+            className="tiptap-editor"
             dangerouslySetInnerHTML={{ __html: design.description }}
           />
         </div>

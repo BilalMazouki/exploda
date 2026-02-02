@@ -30,20 +30,36 @@
 
   /* ---------------- SANITIZER ---------------- */
 
-  function sanitizeTipTap(html: string) {
-    return sanitizeHtml(html, {
-      allowedTags: [
-        "p","b","strong","i","em","u",
-        "h1","h2","h3",
-        "ul","ol","li",
-        "blockquote","code","pre",
-        "a","br"
-      ],
-      allowedAttributes: {
-        a: ["href", "target", "rel"],
-      },
-    });
-  }
+ /* ---------------- SANITIZER ---------------- */
+
+function sanitizeTipTap(html: string) {
+  return sanitizeHtml(html, {
+    allowedTags: [
+      "p","b","strong","i","em","u","s",
+      "h1","h2","h3",
+      "ul","ol","li",
+      "blockquote","code","pre",
+      "a","br","span","div",
+      "sub","sup"
+    ],
+    allowedAttributes: {
+      a: ["href", "target", "rel"],
+      p: ["style"],
+      h1: ["style"],
+      h2: ["style"],
+      h3: ["style"],
+      span: ["style"],
+      div: ["style"],
+    },
+    allowedStyles: {
+      '*': {
+        'color': [/^#[0-9a-fA-F]{3,6}$/, /^rgb\(/, /^rgba\(/],
+        'text-align': [/^left$/, /^right$/, /^center$/, /^justify$/],
+        'background-color': [/^#[0-9a-fA-F]{3,6}$/, /^rgb\(/, /^rgba\(/],
+      }
+    }
+  });
+}
 
   /* ---------------- POST HANDLER ---------------- */
 

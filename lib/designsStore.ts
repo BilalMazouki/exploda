@@ -2,6 +2,7 @@ export type Design = {
   id: string;
   title: string;
   description: string;
+  blog?: string; // New field for blog content
   imageUrl?: string;
   images?: string[];
   createdAt?: string;
@@ -14,8 +15,6 @@ export async function getDesigns(): Promise<Design[]> {
     const response = await fetch('/api/designs');
     const data = await response.json();
     return data.designs || [];
-    
-  
   } catch (error) {
     console.error('Error fetching designs:', error);
     return [];
