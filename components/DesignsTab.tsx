@@ -53,7 +53,7 @@ export default function DesignsTab({ onAddNew }: { onAddNew?: () => void }) {
         {onAddNew && (
           <button
             onClick={onAddNew}
-            className="rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 px-6 py-2 text-sm font-semibold text-white shadow-xl hover:scale-105 transition"
+            className="rounded-full bg-linear-to-r from-purple-500 to-fuchsia-500 px-6 py-2 text-sm font-semibold text-white shadow-xl hover:scale-105 transition"
           >
             Add New
           </button>

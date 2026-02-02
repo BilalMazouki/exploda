@@ -67,7 +67,7 @@ export default function DesignDetailPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-fuchsia-50">
+    <main className="min-h-screen bg-linear-to-br from-purple-50 via-white to-fuchsia-50">
       {/* Header / Back Button */}
       <div className="max-w-6xl mx-auto px-6 py-6">
         <button
@@ -82,7 +82,7 @@ export default function DesignDetailPage() {
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-6 pb-16">
         {/* Title */}
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-fuchsia-600">
+        <h1 className="text-5xl font-extrabold text-gray-900 mb-4 bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-fuchsia-600">
           {design.title}
         </h1>
 
@@ -128,7 +128,7 @@ export default function DesignDetailPage() {
         <div className="bg-white rounded-3xl shadow-xl p-8 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Description</h2>
           <div 
-            className="tiptap-editor prose prose-lg max-w-none"
+            className="tiptap-editor prose prose-lg  max-w-none"
             dangerouslySetInnerHTML={{ __html: design.description }}
           />
         </div>

@@ -31,24 +31,15 @@ export default function AddDesignModal({
     setUploading(true);
     setError("");
     try {
-      // Save design with dynamic ID
-      const savedDesign = saveDesign({
-        title,
-        description,
-        imageUrl: previews[0] || "",
-        images: previews,
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      files.forEach((file) => formData.append("images", file));
+      const resp = await fetch("/api/designs", {
+        method: "POST",
+        body: formData,
       });
-
-      console.log("Design saved with ID:", (await savedDesign).id);
-
-      // Reset form
-      setTitle("");
-      setDescription("<p>Start writing your design description...</p>");
-      setFiles([]);
-      setPreviews([]);
-
-      // Call success callback
-      onSuccess?.();
+      if (!resp.ok) throw new Error("Upload failed.");
       onClose();
     } catch (err: any) {
       setError(err.message || "Upload failed.");

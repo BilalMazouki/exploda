@@ -220,7 +220,7 @@ export default function RichTextEditor({
                     <Bars3BottomRightIcon className="w-4 h-4" />
                 </button>
             </div>
-
+                        
             {/* Editor */}
             <EditorContent editor={editor} />
         </div>
