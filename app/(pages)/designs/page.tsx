@@ -8,24 +8,24 @@ import { getDesignById, Design } from "@/lib/designsStore";
 export default function DesignDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const id = params.id as string;
+  const slug = params.slug as string;
   
   const [design, setDesign] = useState<Design | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // 🔴 Fetch design by ID from API
+  // 🔴 Fetch design by slug from API
   useEffect(() => {
     async function fetchDesign() {
       setLoading(true);
-      const fetchedDesign = await getDesignById(id);
+      const fetchedDesign = await getDesignById(slug);
       console.log("Fetched design:", fetchedDesign); // Debug log
       console.log("Blog content:", fetchedDesign?.blog); // Debug log
       setDesign(fetchedDesign);
       setLoading(false);
     }
     fetchDesign();
-  }, [id]);
+  }, [slug]);
 
   if (loading) {
     return (

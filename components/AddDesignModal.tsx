@@ -13,6 +13,7 @@ export default function AddDesignModal({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [slug, setSlug] = useState("");
   const [blog, setBlog] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -34,6 +35,7 @@ export default function AddDesignModal({
     try {
       const formData = new FormData();
       formData.append("title", title);
+      formData.append("slug", slug);
       formData.append("description", description);
       formData.append("blog", blog);
       files.forEach((file) => formData.append("images", file));
@@ -43,10 +45,15 @@ export default function AddDesignModal({
         body: formData,
       });
       
-      if (!resp.ok) throw new Error("Upload failed.");
+      if (!resp.ok) {
+        const data = await resp.json();
+        setError(data.errors?.fieldErrors?.slug?.[0] || data.error || "Upload failed.");
+        return;
+      }
       
       // Reset form
       setTitle("");
+      setSlug("");
       setDescription("");
       setBlog("");
       setFiles([]);
@@ -87,6 +94,19 @@ export default function AddDesignModal({
                 placeholder="E.g., Vibrant Landing Page"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </div>
+             <div>
+              <label className="mb-2 block text-sm font-medium text-gray-700">
+                Slug
+              </label>
+              <input
+                type="text"
+                className="w-full rounded-xl border border-gray-200 px-4 py-2 text-sm bg-white focus:ring-2 focus:ring-purple-400 transition"
+                placeholder="E.g., vibrant-landing-page"
+                value={slug}
+                onChange={(e) => setSlug(e.target.value)}
                 required
               />
             </div>

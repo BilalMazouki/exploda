@@ -3,6 +3,7 @@ import Link from "next/link";
 
 export type Design = {
   id: string;
+  slug: string;
   title: string;
   description: string;
   images?: string[];
@@ -25,7 +26,7 @@ export default function DesignCard({ design }: { design: Design }) {
       />
       <div className="mt-4 flex justify-end">
         <Link
-          href={`/designs/${design.id}`}
+          href={`/designs/${design.slug}`}
           className="absolute right-2 bottom-2 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 px-5 py-2 text-sm font-semibold text-white shadow hover:scale-105 transition"
         >
           View Post

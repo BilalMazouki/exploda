@@ -41,6 +41,7 @@ export async function POST(req: Request) {
 
   const raw = {
     title: form.get("title"),
+    slug: form.get("slug"),
     description: form.get("description"),
     blog: form.get("blog"),
     images: form.getAll("images"),
@@ -48,6 +49,7 @@ export async function POST(req: Request) {
   
   const schema = z.object({
     title: z.string().min(1).max(120),
+    slug: z.string().min(1).max(120).regex(/^\S+$/, { message: "Slug must not contain whitespace" }),
     description: z.string().min(1).max(500),
     blog: z.string().min(1).max(50_000),
     images: z.array(
@@ -81,13 +83,19 @@ export async function POST(req: Request) {
 
   const cleanBlog = sanitizeTipTap(parsed.data.blog);
 
-  await supabase.from("posts").insert({
+  const {error } =await supabase.from("posts").insert({
     title: parsed.data.title,
-    description: parsed.data.description,  // ← ADDED THIS LINE!
+    description: parsed.data.description,
+    slug: parsed.data.slug,
     blog: cleanBlog,
     images: uploadedUrls,
   });
-
+  if (error?.code === "23505") {
+    return NextResponse.json(
+      { errors: { fieldErrors: { slug: ["Slug already exists"] } } },
+      { status: 400 }
+    );
+  }
   return NextResponse.json({ success: true });
 }
 
