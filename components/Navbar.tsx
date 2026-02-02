@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { BellIcon, MagnifyingGlassIcon, UserCircleIcon, Bars3Icon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, UserCircleIcon, Bars3Icon } from "@heroicons/react/24/outline";
 
 
 
@@ -16,7 +16,7 @@ export default function Navbar({ onOpenSidebar }: NavbarProps) {
   const user = { name: "jassem sabri", avatar: "" };
 
   return (
-    <nav className="flex items-center justify-between px-8 py-4 bg-white/80 backdrop-blur-lg shadow sticky top-0 z-40">
+    <nav className="flex items-center justify-between px-8 py-4 bg-white/80 backdrop-blur-lg shadow  top-0 left-0 w-full z-40">
       {/* Hamburger for mobile */}
       <button
         className="md:hidden mr-4 p-2 rounded hover:bg-gray-200 transition"

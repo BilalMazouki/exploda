@@ -6,17 +6,22 @@ export default function Sidebar({ open = false, onClose }: { open?: boolean; onC
     <>
       {/* Overlay for mobile drawer */}
       <div
-        className={`fixed inset-0 z-40 bg-black/30 transition-opacity md:hidden ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 z-40 bg-black/30 transition-opacity md:hidden ${
+          open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
         onClick={onClose}
         aria-hidden={open ? 'false' : 'true'}
       />
+
+      {/* Sidebar */}
       <aside
-        className={`fixed z-50 top-0 left-0 w-72 h-full border-r bg-white/60 backdrop-blur-sm px-6 py-10 shadow-lg transform transition-transform duration-300
+        className={`fixed z-50 top-0 left-0 w-72 h-screen border-r bg-white/60 backdrop-blur-sm shadow-lg transform transition-transform duration-300 flex flex-col
         ${open ? 'translate-x-0' : '-translate-x-full'}
-        md:static md:translate-x-0 md:block md:h-screen md:z-auto`}
+        md:static md:translate-x-0 md:z-auto`}
         aria-hidden={open ? 'false' : 'true'}
       >
-        <div className="flex items-center justify-between mb-8">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-10 border-b border-gray-200 flex-shrink-0">
           <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">Dashboard</h2>
           {/* Close button for mobile */}
           <button
@@ -29,7 +34,9 @@ export default function Sidebar({ open = false, onClose }: { open?: boolean; onC
             </svg>
           </button>
         </div>
-        <nav className="space-y-3 text-xl">
+
+        {/* Navigation */}
+        <nav className="flex-1 px-6 py-6 space-y-3 text-xl overflow-y-auto">
           <SidebarItem label="Designs" active />
           <SidebarItem label="Testimonials" active={false} disabled />
           <SidebarItem label="Team" active={false} disabled />
