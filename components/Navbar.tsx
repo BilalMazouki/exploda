@@ -37,6 +37,7 @@ export default function Navbar({ onOpenSidebar }: NavbarProps) {
             placeholder="Search designs…"
           />
         </div>
+        
       </form>
 
       {/* Notification & User */}
@@ -47,7 +48,7 @@ export default function Navbar({ onOpenSidebar }: NavbarProps) {
           ) : (
             <UserCircleIcon className="w-8 h-8 text-gray-500 group-hover:text-purple-600 transition" />
           )}
-          <span className="font-medium text-gray-700 group-hover:text-purple-600 transition">{user.name}</span>
+          <span className="font-medium text-gray-700 group-hover:text-purple-600 whitespace-nowrap transition">{user.name}</span>
         </div>
       </div>
     </nav>
