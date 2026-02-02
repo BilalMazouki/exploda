@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { BellIcon, MagnifyingGlassIcon, UserCircleIcon, Bars3Icon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, UserCircleIcon, Bars3Icon } from "@heroicons/react/24/outline";
 
 
 
@@ -16,7 +16,7 @@ export default function Navbar({ onOpenSidebar }: NavbarProps) {
   const user = { name: "jassem sabri", avatar: "" };
 
   return (
-    <nav className="flex items-center justify-between px-8 py-4 bg-white/80 backdrop-blur-lg shadow sticky top-0 z-40">
+    <nav className="flex items-center justify-between px-8 py-4 bg-white/80 backdrop-blur-lg shadow  top-0 left-0 w-full z-40">
       {/* Hamburger for mobile */}
       <button
         className="md:hidden mr-4 p-2 rounded hover:bg-gray-200 transition"
@@ -26,7 +26,7 @@ export default function Navbar({ onOpenSidebar }: NavbarProps) {
         <Bars3Icon className="w-7 h-7 text-gray-700" />
       </button>
       {/* Search */}
-      <form className="flex-1 max-w-md mr-4">
+      <form className="flex-1 max-w-md  mr-4">
         <div className="relative">
           <MagnifyingGlassIcon className="w-5 h-5 absolute left-3 top-[12px] text-gray-400" />
           <input
@@ -41,14 +41,6 @@ export default function Navbar({ onOpenSidebar }: NavbarProps) {
 
       {/* Notification & User */}
       <div className="flex items-center gap-6">
-        <button className="relative p-2 hover:bg-gray-100 rounded-full transition">
-          <BellIcon className="w-6 h-6 text-gray-500" />
-          {unreadNotifications > 0 && (
-            <span className="absolute top-1 right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-semibold leading-none text-white bg-red-500 rounded-full">
-              {unreadNotifications}
-            </span>
-          )}
-        </button>
         <div className="flex items-center gap-2 cursor-pointer group">
           {user.avatar ? (
             <img src={user.avatar} alt="user avatar" className="w-8 h-8 rounded-full" />
