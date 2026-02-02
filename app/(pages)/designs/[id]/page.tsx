@@ -82,9 +82,9 @@ export default function DesignDetailPage() {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto space-y- px-6 pb-16">
+      <div className="max-w-6xl mx-auto px-6 pb-16">
         {/* Title */}
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-4 ">
+        <h1 className="text-5xl font-extrabold text-gray-900 mb-4 bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-fuchsia-600">
           {design.title}
         </h1>
 
