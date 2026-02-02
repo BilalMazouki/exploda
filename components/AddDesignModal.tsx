@@ -53,7 +53,7 @@ export default function AddDesignModal({
         <div className="p-8 pb-6 border-b border-gray-100">
           <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
             <span className="inline-block w-6 h-6 bg-gradient-to-r from-purple-400 to-fuchsia-400 rounded-lg"></span>
-            Add New Design
+            Add New Post
           </h2>
         </div>
 
@@ -140,7 +140,7 @@ export default function AddDesignModal({
               disabled={uploading}
               className="rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 px-8 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition disabled:opacity-50"
             >
-              {uploading ? "Uploading..." : "Save Design"}
+              {uploading ? "Uploading..." : "Save Post"}
             </button>
           </div>
         </div>
