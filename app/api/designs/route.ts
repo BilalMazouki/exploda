@@ -1,13 +1,9 @@
-  import { NextResponse } from "next/server";
-  import { z } from "zod";
-  import sanitizeHtml from "sanitize-html";
-  import { createClient } from "@/utils/supabase/server";
+import { NextResponse } from "next/server";
+import { z } from "zod";
+import sanitizeHtml from "sanitize-html";
+import { createClient } from "@/utils/supabase/server";
 
-
-
-  /* ---------------- SANITIZER ---------------- */
-
- /* ---------------- SANITIZER ---------------- */
+/* ---------------- SANITIZER ---------------- */
 
 function sanitizeTipTap(html: string) {
   return sanitizeHtml(html, {
@@ -38,7 +34,7 @@ function sanitizeTipTap(html: string) {
   });
 }
 
-  /* ---------------- POST HANDLER ---------------- */
+/* ---------------- POST HANDLER ---------------- */
 
 export async function POST(req: Request) {
   const form = await req.formData();
@@ -49,11 +45,11 @@ export async function POST(req: Request) {
     blog: form.get("blog"),
     images: form.getAll("images"),
   };
+  
   const schema = z.object({
     title: z.string().min(1).max(120),
-    blog: z.string().min(1).max(20_000),
-    description: z.string().min(1).max(20_000),
-
+    description: z.string().min(1).max(500),
+    blog: z.string().min(1).max(50_000),
     images: z.array(
       z.instanceof(File)
         .refine(f => f.size <= 5 * 1024 * 1024)
@@ -77,7 +73,7 @@ export async function POST(req: Request) {
   for (const image of parsed.data.images) {
     const path = `posts/${crypto.randomUUID()}.${image.name.split(".").pop()}`;
 
-    const {error} =   await supabase.storage.from("images").upload(path, image);
+    const {error} = await supabase.storage.from("images").upload(path, image);
     const { data } = supabase.storage.from("images").getPublicUrl(path);
     console.log(error);
     uploadedUrls.push(data.publicUrl);
@@ -87,19 +83,18 @@ export async function POST(req: Request) {
 
   await supabase.from("posts").insert({
     title: parsed.data.title,
+    description: parsed.data.description,  // ← ADDED THIS LINE!
     blog: cleanBlog,
-    description: parsed.data.description,
     images: uploadedUrls,
   });
 
   return NextResponse.json({ success: true });
 }
 
-
 export async function GET() {
   const supabase = await createClient();
 
-  const { data : designs, error } = await supabase
+  const { data: designs, error } = await supabase
     .from("posts")
     .select("*")
     .order("created_at", { ascending: false });
@@ -112,5 +107,5 @@ export async function GET() {
     );
   }
 
-  return NextResponse.json({ designs } );
+  return NextResponse.json({ designs });
 }

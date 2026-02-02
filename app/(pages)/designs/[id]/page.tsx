@@ -19,6 +19,8 @@ export default function DesignDetailPage() {
     async function fetchDesign() {
       setLoading(true);
       const fetchedDesign = await getDesignById(id);
+      console.log("Fetched design:", fetchedDesign); // Debug log
+      console.log("Blog content:", fetchedDesign?.blog); // Debug log
       setDesign(fetchedDesign);
       setLoading(false);
     }
@@ -80,9 +82,9 @@ export default function DesignDetailPage() {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-6 pb-16">
+      <div className="max-w-6xl mx-auto space-y- px-6 pb-16">
         {/* Title */}
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-4 bg-clip-text text-transparent bg-linear-to-r from-purple-600 to-fuchsia-600">
+        <h1 className="text-5xl font-extrabold text-gray-900 mb-4 ">
           {design.title}
         </h1>
 
@@ -124,13 +126,30 @@ export default function DesignDetailPage() {
           </div>
         )}
 
-        {/* Description with TipTap content */}
+        {/* Blog Content with TipTap styling */}
         <div className="bg-white rounded-3xl shadow-xl p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Description</h2>
-          <div 
-            className="tiptap-editor"
-            dangerouslySetInnerHTML={{ __html: design.description }}
-          />
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Blog</h2>
+          {design.blog ? (
+            <div 
+              className="tiptap-editor"
+              dangerouslySetInnerHTML={{ __html: design.blog }}
+            />
+          ) : (
+            <div className="space-y-4">
+              <p className="text-red-600 font-semibold">⚠️ No blog content available</p>
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <p className="text-sm text-gray-700">
+                  <strong>Debug Info:</strong>
+                </p>
+                <p className="text-xs text-gray-600 mt-2">
+                  Blog field is: {design.blog === undefined ? 'undefined' : design.blog === null ? 'null' : 'empty string'}
+                </p>
+                <p className="text-xs text-gray-600 mt-1">
+                  This post was likely created before the blog field was added.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Metadata */}
