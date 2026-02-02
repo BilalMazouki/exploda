@@ -12,7 +12,7 @@ export default function AddDesignModal({
 }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("<p>Start writing your design description...</p>");
+  const [description, setDescription] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -44,7 +44,7 @@ export default function AddDesignModal({
 
       // Reset form
       setTitle("");
-      setDescription("<p>Start writing your design description...</p>");
+      setDescription("");
       setFiles([]);
       setPreviews([]);
 
