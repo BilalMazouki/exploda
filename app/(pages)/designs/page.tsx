@@ -1,7 +1,8 @@
 "use client";
 
-import DesignCard, { Design } from "@/components/DesignCard";
-import { mockDesigns } from "@/components/mockDesigns";
+import DesignCard from "@/components/DesignCard";
+import { Design } from "@/lib/designsStore";
+import { getDesigns } from "@/lib/designsStore";
 import { useState, useEffect } from "react";
 
 export default function DesignsListPage() {
@@ -9,26 +10,39 @@ export default function DesignsListPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const loadDesigns = () => {
     setLoading(true);
     setError(null);
     const timer = setTimeout(() => {
       try {
-        setDesigns(mockDesigns);
+        setDesigns(getDesigns());
         setLoading(false);
       } catch (err: any) {
         setError(err.message || "Something went wrong.");
         setLoading(false);
       }
-    }, 900);
+    }, 300);
     return () => clearTimeout(timer);
+  };
+
+  useEffect(() => {
+    loadDesigns();
   }, []);
 
   const SKELETONS = Array.from({ length: 6 });
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-8">
-      <h1 className="text-2xl font-bold mb-4">All Designs</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold">All Designs</h1>
+        <button
+          onClick={loadDesigns}
+          className="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition"
+        >
+          Refresh
+        </button>
+      </div>
+      
       {loading ? (
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
           {SKELETONS.map((_, i) => (
@@ -46,6 +60,10 @@ export default function DesignsListPage() {
       ) : error ? (
         <div className="p-8 bg-red-50 text-red-600 rounded-xl">
           <span className="font-semibold">Error:</span> {error}
+        </div>
+      ) : designs.length === 0 ? (
+        <div className="text-center py-12 text-gray-500">
+          <p className="text-lg">No designs yet. Create your first one!</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">

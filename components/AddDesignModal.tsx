@@ -1,11 +1,14 @@
 "use client";
 import React, { useRef, useState } from "react";
 import RichTextEditor from "./RichTextEditor";
+import { saveDesign } from "@/lib/designsStore";
 
 export default function AddDesignModal({
   onClose,
+  onSuccess,
 }: {
   onClose: () => void;
+  onSuccess?: () => void;
 }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState("");
@@ -27,20 +30,30 @@ export default function AddDesignModal({
     e.preventDefault();
     setUploading(true);
     setError("");
+    
     try {
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("description", description);
-      files.forEach((file) => formData.append("images", file));
-
-      const resp = await fetch("/api/designs", {
-        method: "POST",
-        body: formData,
+      // Save design with dynamic ID
+      const savedDesign = saveDesign({
+        title,
+        description,
+        imageUrl: previews[0] || "",
+        images: previews,
       });
-      if (!resp.ok) throw new Error("Upload failed.");
+
+      console.log("Design saved with ID:", savedDesign.id);
+
+      // Reset form
+      setTitle("");
+      setDescription("<p>Start writing your design description...</p>");
+      setFiles([]);
+      setPreviews([]);
+
+      // Call success callback
+      onSuccess?.();
       onClose();
     } catch (err: any) {
-      setError(err.message || "Upload failed.");
+      console.error("Save error:", err);
+      setError(err.message || "Save failed.");
     } finally {
       setUploading(false);
     }
@@ -52,7 +65,6 @@ export default function AddDesignModal({
         {/* Header */}
         <div className="p-8 pb-6 border-b border-gray-100">
           <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <span className="inline-block w-6 h-6 bg-gradient-to-r from-purple-400 to-fuchsia-400 rounded-lg"></span>
             Add New Post
           </h2>
         </div>
@@ -119,7 +131,13 @@ export default function AddDesignModal({
               />
             </div>
 
-            {error && <div className="py-2 text-red-500 text-sm">{error}</div>}
+            {error && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-red-600 text-sm">
+                  <span className="font-semibold">Error:</span> {error}
+                </p>
+              </div>
+            )}
           </form>
         </div>
 
@@ -137,10 +155,10 @@ export default function AddDesignModal({
             <button
               type="submit"
               form="design-form"
-              disabled={uploading}
-              className="rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 px-8 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition disabled:opacity-50"
+              disabled={uploading || !title.trim()}
+              className="rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 px-8 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {uploading ? "Uploading..." : "Save Post"}
+              {uploading ? "Saving..." : "Save Post"}
             </button>
           </div>
         </div>
