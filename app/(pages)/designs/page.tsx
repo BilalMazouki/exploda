@@ -1,8 +1,8 @@
 "use client";
 
+import DesignCard, { Design } from "@/components/DesignCard";
+import { mockDesigns } from "@/components/mockDesigns";
 import { useState, useEffect } from "react";
-import DesignCard, { Design } from "../components/DesignCard";
-import { mockDesigns } from "../components/mockDesigns";
 
 export default function DesignsListPage() {
   const [designs, setDesigns] = useState<Design[]>([]);

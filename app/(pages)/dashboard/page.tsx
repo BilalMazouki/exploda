@@ -1,9 +1,9 @@
 "use client";
 
-import AddDesignModal from "../components/AddDesignModal";
-import DesignsTab from "../components/DesignsTab";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import AddDesignModal from "@/components/AddDesignModal";
+import DesignsTab from "@/components/DesignsTab";
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 import { useState } from "react";
 
 export default function DashboardPage() {

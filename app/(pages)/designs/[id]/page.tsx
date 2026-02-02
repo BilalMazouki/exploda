@@ -3,7 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { mockDesigns } from "../../components/mockDesigns";
+import { mockDesigns } from "@/components/mockDesigns";
 
 export default function DesignDetailPage() {
   const params = useParams();
