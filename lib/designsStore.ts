@@ -11,31 +11,11 @@ export type Design = {
 // Replace this function with API call to fetch designs from Supabase
 export async function getDesigns(): Promise<Design[]> {
   try {
-    // ⚠️ REPLACE THIS WITH YOUR API CALL
-    // Example:
-    // const response = await fetch('/api/designs');
-    // const data = await response.json();
-    // return data.designs || [];
+    const response = await fetch('/api/designs');
+    const data = await response.json();
+    return data.designs || [];
     
-    // Temporary: Return from localStorage for now
-    if (typeof window === 'undefined') return [];
-    
-    const stored = localStorage.getItem('designs');
-    if (stored) {
-      try {
-        const designs = JSON.parse(stored);
-        // Sort by createdAt, newest first
-        return designs.sort((a: Design, b: Design) => {
-          const dateA = new Date(a.createdAt || 0).getTime();
-          const dateB = new Date(b.createdAt || 0).getTime();
-          return dateB - dateA;
-        });
-      } catch {
-        return [];
-      }
-    }
-    
-    return [];
+  
   } catch (error) {
     console.error('Error fetching designs:', error);
     return [];

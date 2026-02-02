@@ -55,7 +55,6 @@ export async function POST(req: Request) {
     description: form.get("description"),
     images: form.getAll("images"),
   };
-
   const schema = z.object({
     title: z.string().min(1).max(120),
 
@@ -101,3 +100,22 @@ export async function POST(req: Request) {
   return NextResponse.json({ success: true });
 }
 
+
+export async function GET() {
+  const supabase = await createClient();
+
+  const { data : designs, error } = await supabase
+    .from("posts")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Failed to load posts" },
+      { status: 500 }
+    );
+  }
+
+  return NextResponse.json({ designs } );
+}

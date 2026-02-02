@@ -30,30 +30,19 @@ export default function AddDesignModal({
     e.preventDefault();
     setUploading(true);
     setError("");
-    
     try {
-      // Save design with dynamic ID
-      const savedDesign = saveDesign({
-        title,
-        description,
-        imageUrl: previews[0] || "",
-        images: previews,
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      files.forEach((file) => formData.append("images", file));
+      const resp = await fetch("/api/designs", {
+        method: "POST",
+        body: formData,
       });
-
-      console.log("Design saved with ID:", (await savedDesign).id);
-
-      // Reset form
-      setTitle("");
-      setDescription("<p>Start writing your design description...</p>");
-      setFiles([]);
-      setPreviews([]);
-
-      // Call success callback
-      onSuccess?.();
+      if (!resp.ok) throw new Error("Upload failed.");
       onClose();
     } catch (err: any) {
-      console.error("Save error:", err);
-      setError(err.message || "Save failed.");
+      setError(err.message || "Upload failed.");
     } finally {
       setUploading(false);
     }
@@ -104,7 +93,9 @@ export default function AddDesignModal({
                 onClick={() => fileInputRef.current?.click()}
                 className="flex h-36 items-center justify-center rounded-xl border-2 border-dashed border-purple-300 bg-gradient-to-r from-purple-50 to-fuchsia-50 text-sm text-purple-400 cursor-pointer hover:border-purple-400 transition"
               >
-                {files.length === 0 ? "Click to upload images" : `${files.length} image(s) selected`}
+                {files.length === 0
+                  ? "Click to upload images"
+                  : `${files.length} image(s) selected`}
               </div>
               {previews.length > 0 && (
                 <div className="mt-3 flex gap-2 flex-wrap">
