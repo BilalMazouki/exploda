@@ -12,7 +12,7 @@ export default function AddDesignModal({
 }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("<p>Start writing your design description...</p>");
+  const [description, setDescription] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -31,15 +31,24 @@ export default function AddDesignModal({
     setUploading(true);
     setError("");
     try {
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("description", description);
-      files.forEach((file) => formData.append("images", file));
-      const resp = await fetch("/api/designs", {
-        method: "POST",
-        body: formData,
+      // Save design with dynamic ID
+      const savedDesign = saveDesign({
+        title,
+        description,
+        imageUrl: previews[0] || "",
+        images: previews,
       });
-      if (!resp.ok) throw new Error("Upload failed.");
+
+      console.log("Design saved with ID:", (await savedDesign).id);
+
+      // Reset form
+      setTitle("");
+      setDescription("<p>Start writing your design description...</p>");
+      setFiles([]);
+      setPreviews([]);
+
+      // Call success callback
+      onSuccess?.();
       onClose();
     } catch (err: any) {
       setError(err.message || "Upload failed.");

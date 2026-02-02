@@ -19,7 +19,10 @@ export default function DesignCard({ design }: { design: Design }) {
         )}
       </div>
       <h3 className="text-base font-semibold text-gray-900">{design.title}</h3>
-      <p className="mt-1 text-xs text-gray-500">{design.description}</p>
+      <div 
+        className="mt-1 text-xs text-gray-500 line-clamp-2" 
+        dangerouslySetInnerHTML={{ __html: design.description }}
+      />
       <div className="mt-4 flex justify-end">
         <Link
           href={`/designs/${design.id}`}
