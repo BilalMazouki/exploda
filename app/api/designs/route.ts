@@ -72,6 +72,7 @@ export async function POST(req: Request) {
   await supabase.from("posts").insert({
     title: parsed.data.title,
     blog: cleanBlog,
+    description: parsed.data.description,
     images: uploadedUrls,
   });
 
