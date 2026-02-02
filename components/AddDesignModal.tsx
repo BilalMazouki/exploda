@@ -47,93 +47,103 @@ export default function AddDesignModal({
   }
 
   return (
-    <div className="fixed  inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm overflow-y-auto py-8">
-      <div className="relative w-full h-screen max-w-4xl rounded-2xl bg-white shadow-2xl p-8 my-8">
-        <h2 className="mb-5 text-2xl font-bold text-gray-900 flex items-center gap-2">
-          <span className="inline-block w-6 h-6 bg-gradient-to-r from-purple-400 to-fuchsia-400 rounded-lg mr-2"></span>
-          Add New Design
-        </h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm p-4">
+      <div className="relative w-full max-w-4xl max-h-[90vh] rounded-2xl bg-white shadow-2xl overflow-hidden flex flex-col">
+        {/* Header */}
+        <div className="p-8 pb-6 border-b border-gray-100">
+          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+            <span className="inline-block w-6 h-6 bg-gradient-to-r from-purple-400 to-fuchsia-400 rounded-lg"></span>
+            Add New Design
+          </h2>
+        </div>
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              Title
-            </label>
-            <input
-              type="text"
-              className="w-full rounded-xl border border-gray-200 px-4 py-2 text-sm bg-white focus:ring-2 focus:ring-purple-400 transition"
-              placeholder="E.g., Vibrant Landing Page"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-          </div>
-
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              Images
-            </label>
-            <input
-              type="file"
-              multiple
-              accept="image/*"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              className="hidden"
-            />
-            <div
-              tabIndex={0}
-              role="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="flex h-36 items-center justify-center rounded-xl border-2 border-dashed border-purple-300 bg-gradient-to-r from-purple-50 to-fuchsia-50 text-sm text-purple-400 cursor-pointer hover:border-purple-400 transition"
-            >
-              {files.length === 0 ? "Click to upload images" : "Change images"}
+        {/* Scrollable Form Content */}
+        <div className="flex-1 overflow-y-auto px-8 py-6">
+          <form className="space-y-6" onSubmit={handleSubmit} id="design-form">
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-700">
+                Title
+              </label>
+              <input
+                type="text"
+                className="w-full rounded-xl border border-gray-200 px-4 py-2 text-sm bg-white focus:ring-2 focus:ring-purple-400 transition"
+                placeholder="E.g., Vibrant Landing Page"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
             </div>
-            {previews.length > 0 && (
-              <div className="mt-3 flex gap-2 flex-wrap">
-                {previews.map((src, idx) => (
-                  <img
-                    key={idx}
-                    src={src}
-                    className="w-16 h-16 object-cover rounded-lg border shadow"
-                    alt={`preview-${idx}`}
-                  />
-                ))}
+
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-700">
+                Images
+              </label>
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className="hidden"
+              />
+              <div
+                tabIndex={0}
+                role="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="flex h-36 items-center justify-center rounded-xl border-2 border-dashed border-purple-300 bg-gradient-to-r from-purple-50 to-fuchsia-50 text-sm text-purple-400 cursor-pointer hover:border-purple-400 transition"
+              >
+                {files.length === 0 ? "Click to upload images" : `${files.length} image(s) selected`}
               </div>
-            )}
-          </div>
+              {previews.length > 0 && (
+                <div className="mt-3 flex gap-2 flex-wrap">
+                  {previews.map((src, idx) => (
+                    <img
+                      key={idx}
+                      src={src}
+                      className="w-16 h-16 object-cover rounded-lg border shadow"
+                      alt={`preview-${idx}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
 
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              Description
-            </label>
-            <RichTextEditor
-              content={description}
-              onChange={setDescription}
-              placeholder="Describe your design in detail..."
-            />
-          </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-700">
+                Description
+              </label>
+              <RichTextEditor
+                content={description}
+                onChange={setDescription}
+                placeholder="Describe your design in detail..."
+              />
+            </div>
 
-          {error && <div className="py-2 text-red-500 text-sm">{error}</div>}
+            {error && <div className="py-2 text-red-500 text-sm">{error}</div>}
+          </form>
+        </div>
 
-          <div className="flex justify-end gap-3 pt-4">
+        {/* Footer with Buttons */}
+        <div className="p-6 border-t border-gray-100 bg-gray-50">
+          <div className="flex justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
               disabled={uploading}
-              className="rounded-full px-5 py-2 text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 transition"
+              className="rounded-full px-6 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-300 hover:bg-gray-100 transition disabled:opacity-50"
             >
               Cancel
             </button>
             <button
               type="submit"
+              form="design-form"
               disabled={uploading}
-              className="rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 px-6 py-2 text-sm font-semibold text-white shadow-lg hover:scale-105 transition disabled:opacity-50"
+              className="rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 px-8 py-2.5 text-sm font-semibold text-white shadow-lg hover:scale-105 transition disabled:opacity-50"
             >
-              {uploading ? "Uploading..." : "Save"}
+              {uploading ? "Uploading..." : "Save Design"}
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
