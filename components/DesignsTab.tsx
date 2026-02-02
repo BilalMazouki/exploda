@@ -11,12 +11,12 @@ export default function DesignsTab({ onAddNew }: { onAddNew?: () => void }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Load designs
-  const loadDesigns = () => {
+  // 🔴 This calls getDesigns() which will use your API
+  const loadDesigns = async () => {
     setLoading(true);
     setError(null);
     try {
-      const loadedDesigns = getDesigns();
+      const loadedDesigns = await getDesigns();
       console.log("Loaded designs:", loadedDesigns);
       setDesigns(loadedDesigns);
       setLoading(false);
@@ -28,9 +28,9 @@ export default function DesignsTab({ onAddNew }: { onAddNew?: () => void }) {
 
   useEffect(() => {
     // Initial load
-    setTimeout(loadDesigns, 300);
+    loadDesigns();
 
-    // Listen for updates
+    // Listen for updates from modal
     const handleUpdate = () => {
       console.log("Designs updated event received");
       loadDesigns();
@@ -59,6 +59,7 @@ export default function DesignsTab({ onAddNew }: { onAddNew?: () => void }) {
           </button>
         )}
       </header>
+      
       {loading ? (
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
           {DESIGN_SKELETONS.map((_, i) => (

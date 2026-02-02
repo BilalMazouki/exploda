@@ -40,7 +40,7 @@ export default function AddDesignModal({
         images: previews,
       });
 
-      console.log("Design saved with ID:", savedDesign.id);
+      console.log("Design saved with ID:", (await savedDesign).id);
 
       // Reset form
       setTitle("");

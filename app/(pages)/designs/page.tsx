@@ -10,19 +10,18 @@ export default function DesignsListPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadDesigns = () => {
+  // 🔴 This calls getDesigns() which will use your API
+  const loadDesigns = async () => {
     setLoading(true);
     setError(null);
-    const timer = setTimeout(() => {
-      try {
-        setDesigns(getDesigns());
-        setLoading(false);
-      } catch (err: any) {
-        setError(err.message || "Something went wrong.");
-        setLoading(false);
-      }
-    }, 300);
-    return () => clearTimeout(timer);
+    try {
+      const loadedDesigns = await getDesigns();
+      setDesigns(loadedDesigns);
+      setLoading(false);
+    } catch (err: any) {
+      setError(err.message || "Something went wrong.");
+      setLoading(false);
+    }
   };
 
   useEffect(() => {

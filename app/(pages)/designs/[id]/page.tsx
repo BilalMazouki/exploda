@@ -1,17 +1,40 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeftIcon, ChevronRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { mockDesigns } from "@/components/mockDesigns";
+import { getDesignById, Design } from "@/lib/designsStore";
 
 export default function DesignDetailPage() {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
-  const design = mockDesigns.find((d) => d.id === id);
-
+  
+  const [design, setDesign] = useState<Design | null>(null);
+  const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // 🔴 Fetch design by ID from API
+  useEffect(() => {
+    async function fetchDesign() {
+      setLoading(true);
+      const fetchedDesign = await getDesignById(id);
+      setDesign(fetchedDesign);
+      setLoading(false);
+    }
+    fetchDesign();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-fuchsia-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading design...</p>
+        </div>
+      </main>
+    );
+  }
 
   if (!design) {
     return (
@@ -29,7 +52,6 @@ export default function DesignDetailPage() {
     );
   }
 
-  // Use images array from mockDesigns, fallback to imageUrl if images doesn't exist
   const images = design.images && design.images.length > 0
     ? design.images
     : design.imageUrl
@@ -93,66 +115,34 @@ export default function DesignDetailPage() {
               </>
             )}
 
-            {/* Dots Indicator */}
+            {/* Image Counter */}
             {images.length > 1 && (
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                {images.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setCurrentImageIndex(idx)}
-                    className={`w-2.5 h-2.5 rounded-full transition ${idx === currentImageIndex
-                        ? "bg-white w-8"
-                        : "bg-white/50 hover:bg-white/75"
-                      }`}
-                    aria-label={`Go to image ${idx + 1}`}
-                  />
-                ))}
+              <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm font-medium">
+                {currentImageIndex + 1} / {images.length}
               </div>
             )}
           </div>
         )}
 
-        {/* Description Section */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl p-10 border border-gray-100">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-            <span className="inline-block w-1 h-8 bg-gradient-to-b from-purple-500 to-fuchsia-500 rounded-full"></span>
-            About This Design
-          </h2>
-          <p className="text-gray-700 text-lg leading-relaxed">
-            {design.description}
-          </p>
+        {/* Description with TipTap content */}
+        <div className="bg-white rounded-3xl shadow-xl p-8 mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Description</h2>
+          <div 
+            className="tiptap-editor prose prose-lg max-w-none"
+            dangerouslySetInnerHTML={{ __html: design.description }}
+          />
+        </div>
 
-          {/* Additional Info (optional) */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl">
-              <p className="text-xs font-semibold text-purple-600 uppercase tracking-wide mb-1">
-                Category
-              </p>
-              <p className="text-gray-800 font-medium">Web Design</p>
-            </div>
-            <div className="p-4 bg-gradient-to-br from-fuchsia-50 to-fuchsia-100 rounded-xl">
-              <p className="text-xs font-semibold text-fuchsia-600 uppercase tracking-wide mb-1">
-                Date
-              </p>
-              <p className="text-gray-800 font-medium">Jan 2026</p>
-            </div>
-            <div className="p-4 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl">
-              <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wide mb-1">
-                Tools
-              </p>
-              <p className="text-gray-800 font-medium">Figma, Tailwind</p>
-            </div>
+        {/* Metadata */}
+        {design.createdAt && (
+          <div className="text-center text-gray-500 text-sm">
+            Created on {new Date(design.createdAt).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
           </div>
-        </div>
-
-        {/* Call to Action (optional) */}
-        <div className="mt-10 flex gap-4 justify-center">
-          <button className="px-8 py-3 rounded-full border-2 border-purple-500 text-purple-600 font-semibold hover:bg-purple-50 transition">
-            <a href="/designs" >
-              View More Designs
-            </a>
-          </button>
-        </div>
+        )}
       </div>
     </main>
   );
