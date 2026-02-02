@@ -4,29 +4,6 @@
   import { createClient } from "@/utils/supabase/server";
 
 
-  /* ---------------- VALIDATION ---------------- */
-
-  const postSchema = z.object({
-    title: z.string().min(1).max(120),
-
-    description: z
-      .string()
-      .min(1)
-      .max(20_000)
-      .refine(v => !/<script|iframe|object|embed/i.test(v), {
-        message: "Invalid HTML",
-      })
-      .refine(v => v.replace(/<[^>]+>/g, "").trim().length > 10, {
-        message: "Empty content",
-      }),
-
-   images: z.array(
-  z.instanceof(File)
-   .refine(f => f.size <= 5 * 1024 * 1024)
-   .refine(f => ["image/png","image/jpeg","image/webp"].includes(f.type))
-).min(1)
-
-  });
 
   /* ---------------- SANITIZER ---------------- */
 
@@ -53,11 +30,12 @@ export async function POST(req: Request) {
   const raw = {
     title: form.get("title"),
     description: form.get("description"),
+    blog: form.get("blog"),
     images: form.getAll("images"),
   };
   const schema = z.object({
     title: z.string().min(1).max(120),
-
+    blog: z.string().min(1).max(20_000),
     description: z.string().min(1).max(20_000),
 
     images: z.array(
@@ -89,11 +67,11 @@ export async function POST(req: Request) {
     uploadedUrls.push(data.publicUrl);
   }
 
-  const cleanDescription = sanitizeTipTap(parsed.data.description);
+  const cleanBlog = sanitizeTipTap(parsed.data.blog);
 
   await supabase.from("posts").insert({
     title: parsed.data.title,
-    description: cleanDescription,
+    blog: cleanBlog,
     images: uploadedUrls,
   });
 
