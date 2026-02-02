@@ -146,7 +146,6 @@
 }
 body{
   background-color: var(--secondary);
-  font-family: var(--font-ab), sans-serif;
   font-weight: 600;
   font-style: normal;
   font : bold; 
