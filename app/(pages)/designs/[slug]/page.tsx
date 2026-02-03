@@ -8,28 +8,26 @@ import { getDesignById, Design } from "@/lib/designsStore";
 export default function DesignDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const id = params.id as string;
+  const slug = params.slug as string;
   
   const [design, setDesign] = useState<Design | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // 🔴 Fetch design by ID from API
+  // 🔴 Fetch design by Slug from API
   useEffect(() => {
     async function fetchDesign() {
       setLoading(true);
-      const fetchedDesign = await getDesignById(id);
-      console.log("Fetched design:", fetchedDesign); // Debug log
-      console.log("Blog content:", fetchedDesign?.blog); // Debug log
+      const fetchedDesign = await getDesignById(slug);
       setDesign(fetchedDesign);
       setLoading(false);
     }
     fetchDesign();
-  }, [id]);
+  }, [slug]);
 
   if (loading) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-fuchsia-50">
+      <main className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-50 to-fuchsia-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading design...</p>
@@ -40,12 +38,12 @@ export default function DesignDetailPage() {
 
   if (!design) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-fuchsia-50">
+      <main className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-50 to-fuchsia-50">
         <div className="text-center">
           <p className="text-2xl text-gray-600 mb-4">Design not found</p>
           <button
             onClick={() => router.back()}
-            className="px-6 py-2 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white font-semibold hover:scale-105 transition"
+            className="px-6 py-2 rounded-full bg-linear-to-r from-purple-500 to-fuchsia-500 text-white font-semibold hover:scale-105 transition"
           >
             Go Back
           </button>

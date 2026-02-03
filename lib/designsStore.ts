@@ -1,6 +1,7 @@
 export type Design = {
   id: string;
   title: string;
+  slug: string;
   description: string;
   blog?: string; // New field for blog content
   imageUrl?: string;
@@ -115,7 +116,7 @@ export async function deleteDesign(id: string): Promise<boolean> {
 }
 
 // 🔴 API INTEGRATION POINT #5: GET SINGLE DESIGN BY ID
-export async function getDesignById(id: string): Promise<Design | null> {
+export async function getDesignById(slug: string): Promise<Design | null> {
   try {
     // ⚠️ REPLACE THIS WITH YOUR API CALL
     // Example:
@@ -124,7 +125,7 @@ export async function getDesignById(id: string): Promise<Design | null> {
     // return data.design || null;
     
     const designs = await getDesigns();
-    return designs.find(d => d.id === id) || null;
+    return designs.find(d => d.slug === slug) || null;
   } catch (error) {
     console.error('Error fetching design:', error);
     return null;
