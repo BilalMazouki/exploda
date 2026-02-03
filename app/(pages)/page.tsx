@@ -1,9 +1,10 @@
-import React from 'react'
+import Hero from "@/components/L.Components/hero/Hero";
 
-const page = () => {
+export default function home() {
   return (
-    <div className=''>Nothing here yet {'(;'} </div>
-  )
+    <main className="">
+      <Hero />
+    </main>
+  );
 }
-
-export default page
+    

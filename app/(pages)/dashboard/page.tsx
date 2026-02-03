@@ -8,6 +8,7 @@ import { useState } from "react";
 export default function DashboardPage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleSuccess = () => {
     setRefreshKey(prev => prev + 1); // Trigger refresh
@@ -15,9 +16,11 @@ export default function DashboardPage() {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <Sidebar/>
+      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Navbar />
+        <Navbar onMenuClick={() => setSidebarOpen(true)} />
+        
         <main className="flex-1 overflow-y-auto p-6">
           <DesignsTab 
             key={refreshKey} 
@@ -25,6 +28,7 @@ export default function DashboardPage() {
           />
         </main>
       </div>
+      
       {showAddModal && (
         <AddDesignModal 
           onClose={() => setShowAddModal(false)}

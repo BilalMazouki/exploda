@@ -18,7 +18,7 @@ export default function DesignDetailPage() {
   useEffect(() => {
     async function fetchDesign() {
       setLoading(true);
-      const fetchedDesign = await getDesignById(id);
+      const fetchedDesign = await getDesignById(slug);
       console.log("Fetched design:", fetchedDesign); // Debug log
       console.log("Blog content:", fetchedDesign?.blog); // Debug log
       setDesign(fetchedDesign);
