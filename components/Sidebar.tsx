@@ -1,7 +1,8 @@
 import SidebarItem from "./SidebarItem";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Sidebar({ open = false, onClose }: { open?: boolean; onClose?: () => void }) {
+  const [ openState , setOpenState ] = useState(false);
   return (
     <>
       {/* Overlay for mobile drawer */}
@@ -11,15 +12,15 @@ export default function Sidebar({ open = false, onClose }: { open?: boolean; onC
         }`}
         onClick={onClose}
         aria-hidden={open ? 'false' : 'true'}
-      />
-
+        />
       {/* Sidebar */}
+      
       <aside
         className={`fixed z-50 top-0 left-0 w-72 h-screen border-r bg-white/60 backdrop-blur-sm shadow-lg transform transition-transform duration-300 flex flex-col
-        ${open ? 'translate-x-0' : '-translate-x-full'}
-        md:static md:translate-x-0 md:z-auto`}
-        aria-hidden={open ? 'false' : 'true'}
-      >
+          ${open ? 'translate-x-0' : '-translate-x-full'}
+          md:static md:translate-x-0 md:z-auto`}
+          aria-hidden={open ? 'false' : 'true'}
+          >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-10 border-b border-gray-200 flex-shrink-0">
           <div className="flex items-center gap-3">     

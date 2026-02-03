@@ -19,8 +19,6 @@ export default function DesignDetailPage() {
     async function fetchDesign() {
       setLoading(true);
       const fetchedDesign = await getDesignById(id);
-      console.log("Fetched design:", fetchedDesign); // Debug log
-      console.log("Blog content:", fetchedDesign?.blog); // Debug log
       setDesign(fetchedDesign);
       setLoading(false);
     }
