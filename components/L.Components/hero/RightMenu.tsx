@@ -6,7 +6,7 @@ export default function RightMenu() {
       className="
         absolute
         top-[222px]
-        right-[120px]
+        left-[1239px]
         w-[151px]
         h-[153px]
         flex

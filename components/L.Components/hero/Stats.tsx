@@ -12,7 +12,7 @@ export default function Stats() {
     flex
     items-start
     gap-[40px]
-    font-[Creato_Display]
+    font-[Creato_Display] 
   "
 >
   {/* +300 */}

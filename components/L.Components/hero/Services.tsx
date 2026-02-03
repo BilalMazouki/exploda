@@ -6,9 +6,9 @@ export default function Services() {
       className="
         absolute
  left-[60px]
-         bottom-[78px]
-        w-[976px]
-        h-[19px]
+         top-[900px]
+        
+        gap-[156px]
         flex
         items-center
         justify-between

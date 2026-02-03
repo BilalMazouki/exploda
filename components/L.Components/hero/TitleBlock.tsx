@@ -4,27 +4,21 @@ export default function TitleBlock() {
   return (
     <div
       className="
-        absolute
-        left-[60px]
-        top-[614px]
-        w-[962px]
-        h-[206px]
-        flex
           whitespace-nowrap
         flex-col
         font-[Creato_Display]
+        uppercase
       "
     >
       {/* World Class */}
       <div
         className="
-          w-[839px]
-          h-[85px]
+         absolute
+         top-[614px]
+         left-[60px]
           text-[120px]
           leading-[120px]
-          font-normal
-          uppercase
-        
+          
           text-[#1E1E1E]
         "
       >
@@ -34,13 +28,12 @@ export default function TitleBlock() {
       {/* Ui Ux Design */}
       <div
         className="
-          w-[757px]
-          h-[85px]
-          mt-[36px]
+         absolute
+         top-[735px]
+         left-[85px]
           text-[120px]
           leading-[120px]
-          font-normal
-          uppercase
+          
           text-[#1E1E1E]
         "
       >

@@ -6,13 +6,13 @@ export default function Decor() {
     <>
       {/* Left blob */}
       <Image
-        src="/blob-left.svg"
+        src="/blob-left.png"
         alt=""
-        width={450}
-        height={450}
+        width={333}
+        height={333}
         className="
           absolute
-          left-[-150px]
+          left-[-185px]
           top-[172px]
          
           z-0
@@ -25,15 +25,27 @@ export default function Decor() {
       />
 
       {/* Right blob */}
-      <img
-        src="/blob-right.svg"
-        alt=""
-        className="
-          absolute
-          right-[0px]
-          bottom-[0px]
-        "
-      />
+      <Image
+  src="/blob-right.png"
+  alt=""
+  width={514}
+  height={514}
+  className="
+    absolute
+    right-[-120px]
+    top-[660px]
+    rotate-[75deg]
+    pointer-events-none
+    z-0
+
+
+    drop-shadow-[9px_-8px_44px_rgba(203,154,229,0.2)]
+    drop-shadow-[106px_-32px_80px_rgba(203,154,229,0.2)]
+    drop-shadow-[98px_-127px_128px_rgba(203,154,229,0.2)]
+    drop-shadow-[90px_142px_140px_rgba(203,154,229,0.2)]
+  "
+/>
+
     </>
   );
 }

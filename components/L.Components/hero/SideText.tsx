@@ -5,16 +5,16 @@ export default function SideText() {
     <div
       className="
         absolute
-        right-[120px]
+        left-[1104px]
         top-[611px]
         w-[286px]
         h-[72px]
-        text-right
+        
       "
     >
       <div
         className="
-          text-[20px]
+           text-[20px]
           leading-[24px]
           font-medium
           uppercase
@@ -22,11 +22,8 @@ export default function SideText() {
           text-[#1E1E1E]
         "
       >
-        Turning ideas into
-      </div>
-
-      <div
-        className="
+        Turning ideas <br className="flex justify-end"></br>into <span
+        className=" 
           text-[20px]
           leading-[24px]
           font-medium
@@ -35,8 +32,15 @@ export default function SideText() {
           text-[rgba(30,30,30,0.4)]
         "
       >
-        powerful online presence
+      powerful online 
+      </span><br></br>
+      <div className="flex justify-end mr-12">
+
+      <span className="">presence</span>
       </div>
+      </div>
+
+      
     </div>
   );
 }
