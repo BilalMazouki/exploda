@@ -9,7 +9,7 @@ import Decor from "./Decor";
 export default function Hero() {
   return (
     <section className="w-full flex justify-center bg-[#F5F4F7] overflow-hidden">
-      <div className="relative w-[1440px] h-[1400px] overflow-hidden">
+      <div className="relative w-[1440px] h-[1300px] overflow-hidden">
 
         <div className="">
           <Decor />

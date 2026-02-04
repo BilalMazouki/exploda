@@ -1,13 +1,17 @@
-import ContactUsHero from "@/components/L.Components/contact us/contactUs";
-import Hero from "@/components/L.Components/hero/Hero";
-import OURMission from "@/components/L.Components/OUR Mission/OURMission";
+import ContactUsHero from "@/components/LandingpPage.Components/contactusSections/contactUs";
+import Hero from "@/components/LandingpPage.Components/heroSection/Hero";
+import OURMission from "@/components/LandingpPage.Components/OurMissionSection/OURMission";
+import PortfolioSection from "@/components/LandingpPage.Components/portfolio/PortfolioSection";
+import ServicesSection from "@/components/LandingpPage.Components/ServicesSection/ServicesSection";
 
 export default function home() {
   return (
-    <main className=" ">
+    <main className=" bg-[#F5F4F7]">
       <Hero />
-      <ContactUsHero />
+      <ServicesSection />
+      <PortfolioSection />
       <OURMission />
+      <ContactUsHero />
     </main>
   )
 }
