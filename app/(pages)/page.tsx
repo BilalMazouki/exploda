@@ -2,6 +2,7 @@ import ContactUsHero from "@/components/LandingpPage.Components/contactusSection
 import Hero from "@/components/LandingpPage.Components/heroSection/Hero";
 import OURMission from "@/components/LandingpPage.Components/OurMissionSection/OURMission";
 import PortfolioSection from "@/components/LandingpPage.Components/portfolio/PortfolioSection";
+import ProcessSection from "@/components/LandingpPage.Components/process/ProcessSection";
 import ServicesSection from "@/components/LandingpPage.Components/ServicesSection/ServicesSection";
 
 export default function home() {
@@ -10,6 +11,7 @@ export default function home() {
       <Hero />
       <ServicesSection />
       <PortfolioSection />
+      <ProcessSection />
       <OURMission />
       <ContactUsHero />
     </main>
