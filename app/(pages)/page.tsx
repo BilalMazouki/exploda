@@ -4,6 +4,7 @@ import OURMission from "@/components/LandingpPage.Components/OurMissionSection/O
 import PortfolioSection from "@/components/LandingpPage.Components/portfolio/PortfolioSection";
 import ProcessSection from "@/components/LandingpPage.Components/process/ProcessSection";
 import ServicesSection from "@/components/LandingpPage.Components/ServicesSection/ServicesSection";
+import TeamSection from "@/components/LandingpPage.Components/Team/TeamSection";
 
 export default function home() {
   return (
@@ -12,6 +13,7 @@ export default function home() {
       <ServicesSection />
       <PortfolioSection />
       <ProcessSection />
+      <TeamSection />
       <OURMission />
       <ContactUsHero />
     </main>
