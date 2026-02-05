@@ -2,29 +2,39 @@ import TestimonialsHeader from "./TestimonialsHeader";
 import TestimonialsSection from "./TestimonialsSection";
 
 export default function HomePage() {
-  /**
-   * 👉 REAL DATA STRATEGY (IMPORTANT)
-   *
-   * In production, this page should:
-   * - Fetch data here (Server Component)
-   * - OR receive data from a CMS
-   * - OR call an internal API
-   *
-   * Example (later):
-   * const data = await fetch("https://api.yoursite.com/testimonials").then(res => res.json())
-   */
-
   return (
-    <main className="relative min-h-screen ">
-      {/* ================= HEADER ================= */}
-      {/* Static section header – usually content-managed */}
-      <TestimonialsHeader />
+    <main className="relative min-h-screen w-full flex justify-center bg-[#F5F4F7]">
+      {/* 
+        RESPONSIVE CONTAINER (MD and above):
+        - Mobile (< 768px): Your existing mobile version
+        - Tablet (768px - 1023px): 768px width
+        - Desktop (1024px - 1439px): 1024px width
+        - Large Desktop (1440px+): Fixed 1440px (Figma)
+      */}
+      <div className="
+        relative
+        w-[1440px]
+        md:w-[768px]
+        lg:w-[1024px]
+        xl:w-[1440px]
+      ">
+        {/* ================= HEADER ================= */}
+        <TestimonialsHeader />
 
-      {/* ================= CONTENT ================= */}
-      {/* Testimonials cards – dynamic data injected here */}
-      <section className="mt-[220px] px-[80px]">
-        <TestimonialsSection />
-      </section>
+        {/* ================= CONTENT ================= */}
+        <section className="
+          mt-[220px]
+          md:mt-[150px]
+          lg:mt-[180px]
+          xl:mt-[220px]
+          px-[80px]
+          md:px-[30px]
+          lg:px-[50px]
+          xl:px-[80px]
+        ">
+          <TestimonialsSection />
+        </section>
+      </div>
     </main>
   );
 }

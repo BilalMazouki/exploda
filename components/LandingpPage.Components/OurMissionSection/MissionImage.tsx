@@ -8,11 +8,13 @@ export default function MissionImage() {
       width={350}
       height={597}
       className="
+        hidden xl:block
         absolute
         left-[-178px]
         top-[381px]
-       scale-x-[-1]
-       
+        scale-x-[-1]
+        w-[350px]
+        h-[597px]
       "
       priority
     />

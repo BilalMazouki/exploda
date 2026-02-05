@@ -4,25 +4,36 @@ export default function OurMissionTitle() {
       className="
         absolute
         left-[60px]
+        md:left-[30px]
+        lg:left-[45px]
+        xl:left-[60px]
         top-[124px]
-       
+        md:top-[60px]
+        lg:top-[80px]
+        xl:top-[124px]
         flex
         flex-col
         items-start
         gap-[16px]
-        
+        md:gap-[10px]
+        lg:gap-[12px]
+        xl:gap-[16px]
       "
     >
       {/* Our Mission (gradient label) */}
       <div
         className="
-          
           flex
-          
           font-creato
           font-bold
           text-[18px]
+          md:text-[12px]
+          lg:text-[14px]
+          xl:text-[18px]
           leading-[21px]
+          md:leading-[14px]
+          lg:leading-[17px]
+          xl:leading-[21px]
           uppercase
           bg-[radial-gradient(107.28%_107.28%_at_-7.28%_0%,_#A480F5_0%,_#CEB2FF_45.67%,_#C6CBFE_81.25%,_#BB9EFF_100%)]
           bg-clip-text
@@ -37,19 +48,32 @@ export default function OurMissionTitle() {
       {/* OUR Mission (title) */}
       <h1
         className="
-          w-[410px]
-          h-[76px]
+          w-auto
+          md:w-auto
+          lg:w-auto
+          xl:w-[410px]
+          h-auto
           font-creato
           font-medium
           text-[64px]
+          md:text-[32px]
+          lg:text-[42px]
+          xl:text-[64px]
           leading-[76px]
-          text-center
+          md:leading-[38px]
+          lg:leading-[50px]
+          xl:leading-[76px]
+          text-left
+          md:text-left
+          lg:text-left
+          xl:text-center
           uppercase
           text-[#1E1E1E]
           flex-none
-          whitespace-pre"
+          whitespace-nowrap
+        "
       >
-        OUR Mission
+        OUR MISSION
       </h1>
     </div>
   );

@@ -1,5 +1,3 @@
-// components/testimonials/TestimonialsHeader.tsx
-
 export default function TestimonialsHeader() {
   return (
     <section
@@ -7,22 +5,33 @@ export default function TestimonialsHeader() {
         absolute
         left-1/2
         top-[124px]
+        md:top-[80px]
+        lg:top-[100px]
+        xl:top-[124px]
         -translate-x-1/2
         w-[739px]
-        h-[109px]
+        md:w-[600px]
+        lg:w-[700px]
+        xl:w-[739px]
+        h-auto
         flex
         flex-col
         items-center
         gap-[12px]
-        
+        md:gap-[8px]
+        lg:gap-[10px]
+        xl:gap-[12px]
       "
     >
       {/* Subtitle */}
       <span
         className="
           w-full
-          h-[21px]
+          h-auto
           text-[18px]
+          md:text-[13px]
+          lg:text-[15px]
+          xl:text-[18px]
           font-bold
           uppercase
           text-center
@@ -38,10 +47,16 @@ export default function TestimonialsHeader() {
       <h2
         className="
           w-full
-          h-[76px]
+          h-auto
           text-[64px]
+          md:text-[36px]
+          lg:text-[48px]
+          xl:text-[64px]
           font-medium
           leading-[76px]
+          md:leading-[42px]
+          lg:leading-[56px]
+          xl:leading-[76px]
           uppercase
           text-center
           text-[#1E1E1E]
