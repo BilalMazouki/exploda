@@ -1,6 +1,7 @@
 import BlogSection from "@/components/LandingpPage.Components/Blog/BlogSection";
 import ContactUsHero from "@/components/LandingpPage.Components/contactusSections/contactUs";
 import CountriesSection from "@/components/LandingpPage.Components/COUNTRY/CountriesSection";
+import Footer from "@/components/LandingpPage.Components/footer/Footer";
 import Hero from "@/components/LandingpPage.Components/heroSection/Hero";
 import OURMission from "@/components/LandingpPage.Components/OurMissionSection/OURMission";
 import PortfolioSection from "@/components/LandingpPage.Components/portfolio/PortfolioSection";
@@ -22,6 +23,7 @@ export default function home() {
       <BlogSection />
       <CountriesSection />
       <ContactUsHero />
+      <Footer/>
     </main>
   )
 }

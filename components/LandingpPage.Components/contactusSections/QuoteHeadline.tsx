@@ -9,7 +9,6 @@ export default function QuoteHeadline() {
       leading-[76px]
       text-[#1E1E1E]
     ">
-      Get a completely free quote for your project
-    </h1>
+Ready To Start<br></br> <span className="font-light"> Your Project?</span></h1>
   );
 }
