@@ -10,7 +10,7 @@ export default function SidebarItem({
   return (
     <button
       disabled={disabled}
-      className={`flex w-full items-center rounded-xl px-4 py-2 text-lg transition
+      className={`flex w-full items-center rounded-xl font-mw px-4 py-2 text-lg transition
         ${
           active
             ? "bg-gradient-to-r from-purple-50 to-fuchsia-50 font-bold text-purple-700 shadow"

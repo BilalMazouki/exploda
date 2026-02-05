@@ -25,7 +25,7 @@ export default function Sidebar({ open = false, onClose }: { open?: boolean; onC
         <div className="flex items-center justify-between px-6 py-10 border-b border-gray-200 flex-shrink-0">
           <div className="flex items-center gap-3">     
             <img src="/logo.svg" width={40} alt="Logo" />  
-            <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">Dashboard</h2>
+            <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight font-ab">Dashboard</h2>
           </div>
 
           {/* Close button for mobile */}
