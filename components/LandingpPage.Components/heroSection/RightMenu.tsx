@@ -1,18 +1,31 @@
-// components/hero/RightMenu.tsx
-
 export default function RightMenu() {
   return (
     <div
       className="
         absolute
         top-[222px]
+        md:top-[120px]
+        lg:top-[160px]
+        xl:top-[222px]
         left-[1239px]
+        md:left-[660px]
+        lg:left-[860px]
+        xl:left-[1239px]
         w-[151px]
+        md:w-[100px]
+        lg:w-[125px]
+        xl:w-[151px]
         h-[153px]
+        md:h-[110px]
+        lg:h-[130px]
+        xl:h-[153px]
         flex
         flex-col
         items-end
         gap-[12px]
+        md:gap-[8px]
+        lg:gap-[10px]
+        xl:gap-[12px]
       "
     >
       {/* Our Projects + */}
@@ -20,7 +33,13 @@ export default function RightMenu() {
         <div
           className="
             text-[18px]
+            md:text-[12px]
+            lg:text-[15px]
+            xl:text-[18px]
             leading-[21px]
+            md:leading-[14px]
+            lg:leading-[18px]
+            xl:leading-[21px]
             font-medium
             uppercase
             tracking-[0.01em]
@@ -32,7 +51,13 @@ export default function RightMenu() {
         <div
           className="
             text-[24px]
+            md:text-[16px]
+            lg:text-[20px]
+            xl:text-[24px]
             leading-[29px]
+            md:leading-[20px]
+            lg:leading-[24px]
+            xl:leading-[29px]
             font-medium
             uppercase
             text-[#BB9CFB]
@@ -46,8 +71,17 @@ export default function RightMenu() {
       <div
         className="
           w-[71px]
+          md:w-[50px]
+          lg:w-[60px]
+          xl:w-[71px]
           text-[18px]
+          md:text-[12px]
+          lg:text-[15px]
+          xl:text-[18px]
           leading-[21px]
+          md:leading-[14px]
+          lg:leading-[18px]
+          xl:leading-[21px]
           font-medium
           uppercase
           tracking-[0.01em]
@@ -62,8 +96,17 @@ export default function RightMenu() {
       <div
         className="
           w-[133px]
+          md:w-[90px]
+          lg:w-[110px]
+          xl:w-[133px]
           text-[18px]
+          md:text-[12px]
+          lg:text-[15px]
+          xl:text-[18px]
           leading-[21px]
+          md:leading-[14px]
+          lg:leading-[18px]
+          xl:leading-[21px]
           font-medium
           uppercase
           tracking-[0.01em]
@@ -78,8 +121,17 @@ export default function RightMenu() {
       <div
         className="
           w-[91px]
+          md:w-[62px]
+          lg:w-[75px]
+          xl:w-[91px]
           text-[18px]
+          md:text-[12px]
+          lg:text-[15px]
+          xl:text-[18px]
           leading-[21px]
+          md:leading-[14px]
+          lg:leading-[18px]
+          xl:leading-[21px]
           font-medium
           uppercase
           tracking-[0.01em]
@@ -94,8 +146,17 @@ export default function RightMenu() {
       <div
         className="
           w-[129px]
+          md:w-[88px]
+          lg:w-[106px]
+          xl:w-[129px]
           text-[18px]
+          md:text-[12px]
+          lg:text-[15px]
+          xl:text-[18px]
           leading-[21px]
+          md:leading-[14px]
+          lg:leading-[18px]
+          xl:leading-[21px]
           font-medium
           uppercase
           tracking-[0.01em]
