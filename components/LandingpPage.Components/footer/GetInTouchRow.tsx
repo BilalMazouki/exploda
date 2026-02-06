@@ -13,9 +13,9 @@ export default function GetInTouchRow() {
         xl:top-[200px]
         box-border
         flex items-center
-        w-[456px] md:w-[360px] lg:w-[420px] xl:w-[456px]
+        w-[456px] md:w-[240px] lg:w-[340px] xl:w-[456px]
         h-[61px] md:h-[40px] lg:h-[48px] xl:h-[61px]
-        px-[16px] md:px-[10px] lg:px-[14px]
+        px-[16px] md:px-[10px] lg:px-[1px]
         py-[20px] md:py-[10px] lg:py-[14px]
         gap-[8px]
         border-b border-[#D9D9D9]
