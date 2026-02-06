@@ -5,15 +5,18 @@ export default function SideText() {
         absolute
         left-[1104px]
         md:left-[590px]
-        lg:left-[780px]
+        lg:left-[804px]
+        xl:left-[1104px]
 
         top-[611px]
         md:top-[340px]
-        lg:top-[430px]
+        lg:top-[431px]
+        xl:top-[611px]
 
         w-[286px]
         md:w-[165px]
         lg:w-[200px]
+        xl:w-[286px]
 
         h-auto
       "

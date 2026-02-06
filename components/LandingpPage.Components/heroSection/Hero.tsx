@@ -30,7 +30,7 @@ export default function Hero() {
       ">
 
         {/* Background decorative blobs - show only on xl */}
-        <div className="hidden xl:block">
+        <div >
           <Decor />
         </div>
 

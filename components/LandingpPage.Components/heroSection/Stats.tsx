@@ -3,22 +3,22 @@ export default function Stats() {
     <div
       className="
         absolute
+
         left-[60px]
         md:left-[30px]
         lg:left-[45px]
         xl:left-[60px]
+
         top-[467px]
         md:top-[250px]
         lg:top-[330px]
         xl:top-[467px]
+
         w-[608px]
-        md:w-[420px]
-        lg:w-[520px]
+        md:w-[320px]
+        lg:w-[420px]
         xl:w-[608px]
-        h-[83px]
-        md:h-[60px]
-        lg:h-[70px]
-        xl:h-[83px]
+        h-auto
       
       "
     >
@@ -41,7 +41,7 @@ export default function Stats() {
           <linearGradient id="paint0_linear_1_3464" x1="191" y1="0" x2="191" y2="83" gradientUnits="userSpaceOnUse">
             <stop stop-color="#D9D9D9" stop-opacity="0.2" />
             <stop offset="0.509615" stop-color="#D9D9D9" />
-            <stop offset="0.951923" stop-color="#D9D9D9" stop-opacity="0.19" />
+            <stop offset="0.951923" stop-color="#D9D9D9" stopOpacity="0.19" />
           </linearGradient>
           <linearGradient id="paint1_linear_1_3464" x1="437" y1="0" x2="437" y2="83" gradientUnits="userSpaceOnUse">
             <stop stop-color="#D9D9D9" stop-opacity="0.2" />

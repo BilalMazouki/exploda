@@ -7,14 +7,17 @@ export default function TitleBlock() {
           top-[614px]
           md:top-[330px]
           lg:top-[435px]
+          xl:top-[614px]
 
           left-[60px]
           md:left-[30px]
           lg:left-[45px]
+            xl:left-[60px]
 
           w-[962px]
           lg:w-[700px]
           md:w-[500px]
+            xl:w-[962px]
       h-auto
         "
     >

@@ -3,13 +3,15 @@ import Image from "next/image";
 interface Props {
   index: string;
   title: string;
-  active?: boolean;
+  isOpen: boolean;
+  onClick: () => void;
 }
 
 export default function ServiceRow({
   index,
   title,
-  active = false,
+  isOpen,
+  onClick,
 }: Props) {
   return (
     <div
@@ -30,16 +32,21 @@ export default function ServiceRow({
         md:gap-0
       "
     >
-      {/* Left side */}
-      <div className="
-        flex 
-        gap-[40px]
-        md:gap-[20px]
-        lg:gap-[30px]
-        xl:gap-[40px]
-        w-full
-        md:w-auto
-      ">
+      {/* Left side (CLICKABLE) */}
+      <button
+        onClick={onClick}
+        aria-expanded={isOpen}
+        className="
+          flex 
+          gap-[40px]
+          md:gap-[20px]
+          lg:gap-[30px]
+          xl:gap-[40px]
+          w-full
+          md:w-auto
+          text-left
+        "
+      >
         <span
           className="
             text-[18px]
@@ -66,7 +73,7 @@ export default function ServiceRow({
             {title}
           </h3>
 
-          {active && (
+          {isOpen && (
             <>
               <p
                 className="
@@ -93,18 +100,20 @@ export default function ServiceRow({
                 research to give you the best.
               </p>
 
-              <div className="
-                flex 
-                flex-wrap
-                gap-[12px]
-                md:gap-[8px]
-                lg:gap-[10px]
-                xl:gap-[12px]
-                mt-[16px]
-                md:mt-[12px]
-                lg:mt-[14px]
-                xl:mt-[16px]
-              ">
+              <div
+                className="
+                  flex 
+                  flex-wrap
+                  gap-[12px]
+                  md:gap-[8px]
+                  lg:gap-[10px]
+                  xl:gap-[12px]
+                  mt-[16px]
+                  md:mt-[12px]
+                  lg:mt-[14px]
+                  xl:mt-[16px]
+                "
+              >
                 {[
                   "USER BEHAVIOR",
                   "USABILITY TESTING",
@@ -139,10 +148,10 @@ export default function ServiceRow({
             </>
           )}
         </div>
-      </div>
+      </button>
 
-      {/* Right image - responsive sizing */}
-      {active && (
+      {/* Right image */}
+      {isOpen && (
         <Image
           src="/services.png"
           alt=""

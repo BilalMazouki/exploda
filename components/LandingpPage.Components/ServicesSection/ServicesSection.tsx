@@ -1,9 +1,15 @@
+"use client";
+
+import { useState } from "react";
 import ServicesList from "./ServicesList";
 
 export default function ServicesSection() {
+  // controls which service index is open
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+
   return (
     <section className="w-full flex justify-center bg-[#F5F4F7]">
-      {/* 
+      {/*
         RESPONSIVE CONTAINER (MD and above):
         - Mobile (< 768px): Your existing mobile version
         - Tablet (768px - 1023px): 768px width
@@ -23,7 +29,10 @@ export default function ServicesSection() {
           xl:px-[60px]
         "
       >
-        <ServicesList />
+        <ServicesList
+          activeIndex={activeIndex}
+          onChange={setActiveIndex}
+        />
       </div>
     </section>
   );
