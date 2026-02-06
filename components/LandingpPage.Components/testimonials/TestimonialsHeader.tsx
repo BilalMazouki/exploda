@@ -1,19 +1,12 @@
 export default function TestimonialsHeader() {
   return (
-    <section
+    <div
       className="
-        absolute
-        left-1/2
-        top-[124px]
-        md:top-[80px]
-        lg:top-[100px]
-        xl:top-[124px]
-        -translate-x-1/2
-        w-[739px]
-        md:w-[600px]
-        lg:w-[700px]
-        xl:w-[739px]
-        h-auto
+        mx-auto
+        max-w-[739px]
+        md:max-w-[600px]
+        lg:max-w-[700px]
+        xl:max-w-[739px]
         flex
         flex-col
         items-center
@@ -26,8 +19,6 @@ export default function TestimonialsHeader() {
       {/* Subtitle */}
       <span
         className="
-          w-full
-          h-auto
           text-[18px]
           md:text-[13px]
           lg:text-[15px]
@@ -46,8 +37,6 @@ export default function TestimonialsHeader() {
       {/* Title */}
       <h2
         className="
-          w-full
-          h-auto
           text-[64px]
           md:text-[36px]
           lg:text-[48px]
@@ -64,6 +53,6 @@ export default function TestimonialsHeader() {
       >
         What our client says
       </h2>
-    </section>
+    </div>
   );
 }

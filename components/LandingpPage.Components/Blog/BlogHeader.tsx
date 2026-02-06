@@ -2,26 +2,18 @@ export default function BlogHeader() {
   return (
     <section
       className="
-        w-full
-        md:w-[720px]
-        lg:w-[950px]
-        xl:w-[1320px]
-        h-auto
         mx-auto
-        px-[60px]
-        md:px-[0px]
-        lg:px-[0px]
-        xl:px-[0px]
+        max-w-[1320px]
+        px-[24px]
+        md:px-[30px]
+        lg:px-[45px]
+        xl:px-[60px]
         flex
-        flex-row
-        md:flex-col
+        flex-col
         lg:flex-row
-        xl:flex-row
         justify-between
-        items-end
-        md:items-start
+        items-start
         lg:items-end
-        xl:items-end
         gap-[52px]
         md:gap-[24px]
         lg:gap-[36px]
@@ -32,25 +24,17 @@ export default function BlogHeader() {
       <div
         className="
           w-full
-          md:w-full
-          lg:w-[530px]
-          xl:w-[530px]
-          h-auto
+          lg:max-w-[530px]
           flex
           flex-col
-          justify-center
-          items-start
           gap-[12px]
           md:gap-[8px]
           lg:gap-[10px]
-          xl:gap-[12px]
         "
       >
         {/* Subtitle */}
         <span
           className="
-            w-full
-            h-auto
             text-[18px]
             md:text-[13px]
             lg:text-[15px]
@@ -68,8 +52,6 @@ export default function BlogHeader() {
         {/* Title */}
         <h2
           className="
-            w-full
-            h-auto
             text-[64px]
             md:text-[36px]
             lg:text-[48px]
@@ -80,35 +62,17 @@ export default function BlogHeader() {
             xl:leading-[76px]
             font-medium
             uppercase
-            text-center
-            md:text-left
-            lg:text-center
-            xl:text-center
             text-[#1E1E1E]
+            text-left
+            lg:text-center
           "
         >
-          Blog & Insights
+          Blog &amp; Insights
         </h2>
       </div>
 
       {/* ================= RIGHT (BUTTON) ================= */}
-      <div
-        className="
-          w-[132px]
-          md:w-[110px]
-          lg:w-[120px]
-          xl:w-[132px]
-          h-[49px]
-          md:h-[42px]
-          lg:h-[45px]
-          xl:h-[49px]
-          flex
-          flex-col
-          items-center
-          isolate
-          relative
-        "
-      >
+      <div className="flex flex-col items-center isolate">
         {/* Button */}
         <button
           className="
@@ -124,17 +88,12 @@ export default function BlogHeader() {
             items-center
             justify-center
             gap-[8px]
-            py-[13px]
-            md:py-[10px]
-            lg:py-[12px]
-            xl:py-[13px]
             bg-[#1E1E1E]
             rounded-[8px]
             z-10
             -mt-[15px]
             md:-mt-[12px]
             lg:-mt-[13px]
-            xl:-mt-[15px]
           "
         >
           <span
@@ -155,7 +114,7 @@ export default function BlogHeader() {
           </span>
         </button>
 
-        {/* Glow / Ellipse */}
+        {/* Glow */}
         <div
           className="
             w-[119px]
@@ -165,7 +124,6 @@ export default function BlogHeader() {
             h-[20px]
             bg-[linear-gradient(90deg,_#8B63E8_0%,_#60B7E3_100%)]
             blur-[16.9px]
-            z-0
           "
         />
       </div>

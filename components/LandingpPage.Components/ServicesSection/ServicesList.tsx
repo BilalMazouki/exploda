@@ -7,7 +7,7 @@ type Props = {
 
 export default function ServicesList({ activeIndex, onChange }: Props) {
   return (
-    <div className="border-t border-gray-200">
+    <div className="border-t border-gray-200 w-full">
       <ServiceRow
         index="01"
         title="UIUX DESIGN"

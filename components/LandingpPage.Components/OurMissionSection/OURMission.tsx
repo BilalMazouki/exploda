@@ -1,35 +1,50 @@
 import MissionDescription from "./MissionDescription";
-import MissionImage from "./MissionImage";
 import OurMissionTitle from "./OurMissionTitle";
 
 export default function MissionPage() {
   return (
     <section className="w-full flex justify-center bg-[#F5F4F7]">
-      {/* 
-        RESPONSIVE CONTAINER (MD and above):
-        - Mobile (< 768px): Your existing mobile version
-        - Tablet (768px - 1023px): 768px width
-        - Desktop (1024px - 1439px): 1024px width
-        - Large Desktop (1440px+): Fixed 1440px (Figma)
-      */}
       <div
         className="
-          relative
-          w-[1440px]
-          md:w-[768px]
-          lg:w-[1024px]
-        xl:w-full
-          h-[902px]
-          md:h-[600px]
-          lg:h-[750px]
-          xl:h-[902px]
-          overflow-hidden
+          w-full
+          max-w-[1440px]
+          mx-auto
+
+          px-[60px]
+          md:px-[30px]
+          lg:px-[45px]
+          xl:px-[60px]
+
+          py-[160px]
+          md:py-[90px]
+          lg:py-[120px]
+          xl:py-[160px]
+
           bg-[#F5F4F7]
+          overflow-hidden
         "
       >
         <OurMissionTitle />
-        <MissionDescription />
-        <MissionImage />
+
+        <div
+          className="
+            mt-[80px]
+            md:mt-[40px]
+            lg:mt-[60px]
+            xl:mt-[80px]
+
+            grid
+            grid-cols-1
+            lg:grid-cols-2
+            gap-[60px]
+            md:gap-[32px]
+            lg:gap-[48px]
+            xl:gap-[60px]
+            items-center
+          "
+        >
+          <MissionDescription />
+        </div>
       </div>
     </section>
   );

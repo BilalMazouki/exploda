@@ -1,12 +1,17 @@
 export default function PortfolioHeader() {
   return (
-    <div className="
-      text-center 
-      mb-[100px]
-      md:mb-[50px]
-      lg:mb-[75px]
-      xl:mb-[100px]
-    ">
+     <div
+      className="
+        w-full
+        flex
+        justify-center
+        text-center
+
+        mb-[50px]
+        lg:mb-[75px]
+        xl:mb-[100px]
+      "
+    >
       
 
         <svg className="w-full h-auto"

@@ -8,66 +8,61 @@ import Decor from "./Decor";
 
 export default function Hero() {
   return (
-    <section className="w-full flex justify-center bg-[#F5F4F7] overflow-hidden">
-      {/* 
-        RESPONSIVE CONTAINER STRATEGY (MD and above only):
-        - Mobile (< 768px): Your existing mobile version
-        - Tablet (768px - 1023px): 768px width
-        - Desktop (1024px - 1439px): 1024px width
-        - Large Desktop (1440px+): Fixed 1440px width (Figma design)
+    <section className="w-full flex justify-center bg-[#F5F4F7] overflow-x-hidden">
+      {/*
+        RESPONSIVE STRATEGY (UNCHANGED CONTENT)
+        - Mobile: fluid height, natural scroll
+        - Tablet: constrained width
+        - Desktop: Figma-based fixed canvas
       */}
-      <div className="
-        relative 
-        w-full
-        md:w-[768px] 
-        lg:w-[1024px] 
-        xl:w-full
-        h-[1300px]
-        md:h-[900px]
-        lg:h-[1100px]
-        xl:h-[1300px]
-        overflow-hidden
-      ">
-
-        {/* Background decorative blobs - show only on xl */}
-        <div >
+      <div
+        className="
+          relative
+          w-full
+          md:w-[768px]
+          lg:w-[1024px]
+          xl:w-[1440px]
+          min-h-[100vh]
+          md:min-h-[900px]
+          lg:min-h-[1100px]
+          xl:min-h-[1300px]
+        "
+      >
+        {/* Decorative background (desktop only visual) */}
+        <div className="hidden xl:block">
           <Decor />
         </div>
 
-        <div>
-          <Navbar />
-        </div>
+        <Navbar />
 
-        <div>
-          <Stats />
-        </div>
+        <Stats />
 
-        <div>
-          <TitleBlock />
-        </div>
+        <TitleBlock />
 
-        <div>
-          <RightMenu />
-        </div>
+        <RightMenu />
 
-        <div>
-          <SideText />
-        </div>
+        <SideText />
 
-        <div>
-          <Services />
-        </div>
+        <Services />
 
-        <div className="absolute top-[1121px] md:top-[750px] lg:top-[900px] xl:top-[1121px]">
-          <img 
-            src="./Frame28.png" 
-            alt="decorative frame" 
-            width={1440} 
+        {/* Bottom decorative image */}
+        <div
+          className="
+            absolute
+            left-1/2
+            -translate-x-1/2
+            bottom-0
+            w-full
+          "
+        >
+          <img
+            src="/Frame28.png"
+            alt="decorative frame"
+            width={1440}
             height={279}
-            className="w-full h-auto pointer-events-none" 
+            className="w-full h-auto pointer-events-none"
           />
         </div>
-
       </div>
     </section>
   );

@@ -2,46 +2,48 @@ export default function PortfolioCTA() {
   return (
     <div
       className="
-        col-span-2
-        md:col-span-2
-        lg:col-span-2
+        col-span-1
+        sm:col-span-2
         xl:col-span-2
-        rounded-[24px]
-        md:rounded-[16px]
+
+        rounded-[16px]
         lg:rounded-[20px]
         xl:rounded-[24px]
-        p-[60px]
-        md:p-[32px]
+
+        p-[32px]
         lg:p-[45px]
         xl:p-[60px]
+
         bg-gradient-to-br
         from-purple-200
         via-purple-300
         to-purple-400
+
         flex
         flex-col
         justify-between
-        min-h-[300px]
-        md:min-h-[200px]
+
+        min-h-[220px]
         lg:min-h-[250px]
         xl:min-h-[300px]
       "
     >
       <h3
         className="
-          text-[48px]
-          md:text-[28px]
+          text-[28px]
           lg:text-[36px]
           xl:text-[48px]
-          leading-[58px]
-          md:leading-[34px]
+
+          leading-[34px]
           lg:leading-[44px]
           xl:leading-[58px]
+
           uppercase
           text-white
           font-medium
-          max-w-[520px]
-          md:max-w-[320px]
+
+          max-w-full
+          sm:max-w-[320px]
           lg:max-w-[400px]
           xl:max-w-[520px]
         "
@@ -53,28 +55,29 @@ export default function PortfolioCTA() {
 
       <button
         className="
-          mt-[40px]
-          md:mt-[24px]
+          mt-[24px]
           lg:mt-[32px]
           xl:mt-[40px]
+
           w-fit
-          px-[32px]
-          md:px-[20px]
+          px-[20px]
           lg:px-[26px]
           xl:px-[32px]
-          py-[14px]
-          md:py-[10px]
+
+          py-[10px]
           lg:py-[12px]
           xl:py-[14px]
+
           rounded-full
           border
           border-white/40
           text-white
           uppercase
-          text-[12px]
-          md:text-[10px]
+
+          text-[10px]
           lg:text-[11px]
           xl:text-[12px]
+
           hover:bg-white/10
           transition-colors
         "

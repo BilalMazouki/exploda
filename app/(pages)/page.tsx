@@ -10,20 +10,50 @@ import ServicesSection from "@/components/LandingpPage.Components/ServicesSectio
 import TeamSection from "@/components/LandingpPage.Components/Team/TeamSection";
 import Testimonial from "@/components/LandingpPage.Components/testimonials/Testimonial";
 
-export default function home() {
+export default function Home() {
   return (
-    <main className=" bg-[#F5F4F7]">
-      <Hero />
-      <ServicesSection />
-      <PortfolioSection />
-      <ProcessSection />
-      <TeamSection />
-      <OURMission />
-      <Testimonial />
-      <BlogSection />
-      <CountriesSection />
-      <ContactUsHero />
-      <Footer/>
+    <main className="w-full overflow-x-hidden bg-[#F5F4F7]">
+      <section className="w-full">
+        <Hero />
+      </section>
+
+      <section className="w-full">
+        <ServicesSection />
+      </section>
+
+      <section className="w-full">
+        <PortfolioSection />
+      </section>
+
+      <section className="w-full">
+        <ProcessSection />
+      </section>
+
+      <section className="w-full">
+        <TeamSection />
+      </section>
+
+      <section className="w-full">
+        <OURMission />
+      </section>
+
+      <section className="w-full">
+        <Testimonial />
+      </section>
+
+      <section className="w-full">
+        <BlogSection />
+      </section>
+
+      <section className="w-full">
+        <CountriesSection />
+      </section>
+
+      <section className="w-full">
+        <ContactUsHero />
+      </section>
+
+      <Footer />
     </main>
-  )
+  );
 }

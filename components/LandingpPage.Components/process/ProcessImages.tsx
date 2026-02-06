@@ -6,8 +6,8 @@ interface Props {
 
 export default function ProcessImages({ showMainOnly = false }: Props) {
   return (
-    <>
-      {/* Main process image - always show */}
+    <div className="relative w-full h-full pointer-events-none">
+      {/* Main process image */}
       <Image
         src="/process.png"
         alt=""
@@ -19,27 +19,30 @@ export default function ProcessImages({ showMainOnly = false }: Props) {
           md:left-[30px]
           lg:left-[45px]
           xl:left-[60px]
-          top-[394.1px]
+
+          top-[394px]
           md:top-[280px]
           lg:top-[330px]
-          xl:top-[394.1px]
+          xl:top-[394px]
+
           w-[488px]
           md:w-[280px]
           lg:w-[360px]
           xl:w-[488px]
           h-auto
         "
+        priority
       />
 
-      {/* Decorative floating images - only on xl */}
+      {/* Decorative floating images — XL only */}
       {!showMainOnly && (
         <>
           {/* 1 */}
           <Image
             src="/process1.png"
             alt=""
-            width={177.76}
-            height={177.76}
+            width={178}
+            height={178}
             className="
               absolute
               left-[1242px]
@@ -56,8 +59,8 @@ export default function ProcessImages({ showMainOnly = false }: Props) {
           <Image
             src="/process1.png"
             alt=""
-            width={98.04}
-            height={98.04}
+            width={98}
+            height={98}
             className="
               absolute
               left-[600px]
@@ -89,6 +92,6 @@ export default function ProcessImages({ showMainOnly = false }: Props) {
           />
         </>
       )}
-    </>
+    </div>
   );
 }
