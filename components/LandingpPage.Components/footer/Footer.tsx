@@ -15,7 +15,7 @@ export default function Footer() {
           w-[1440px]
           md:w-[768px]
           lg:w-[1024px]
-          xl:w-[1440px]
+          xl:w-full
           h-[585px]
           md:h-[420px]
           lg:h-[500px]

@@ -17,7 +17,7 @@ export default function TeamSection() {
           w-[1440px]
           md:w-[768px]
           lg:w-[1024px]
-          xl:w-[1440px]
+        xl:w-full
           h-[1684px]
           md:h-[1200px]
           lg:h-[1400px]

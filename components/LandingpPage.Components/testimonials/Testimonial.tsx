@@ -15,7 +15,7 @@ export default function HomePage() {
    */
 
   return (
-    <main className="relative min-h-screen ">
+    <main className="relative     ">
       {/* ================= HEADER ================= */}
       {/* Static section header – usually content-managed */}
       <TestimonialsHeader />

@@ -17,7 +17,7 @@ export default function CountriesSection() {
           w-[1440px]
           md:w-[768px]
           lg:w-[1024px]
-          xl:w-[1440px]
+          xl:w-full
           h-auto
           md:h-auto
           lg:h-[650px]

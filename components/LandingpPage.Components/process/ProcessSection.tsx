@@ -18,7 +18,7 @@ export default function ProcessSection() {
           w-[1440px]
           md:w-[768px]
           lg:w-[1024px]
-          xl:w-[1440px]
+        xl:w-full
           h-[1934px]
           md:h-[1400px]
           lg:h-[1650px]

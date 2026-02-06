@@ -21,7 +21,7 @@ export default function ServicesSection() {
           w-[1440px]
           md:w-[768px]
           lg:w-[1024px]
-          xl:w-[1440px]
+        xl:w-full
           mx-auto
           px-[60px]
           md:px-[30px]

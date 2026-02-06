@@ -20,7 +20,7 @@ export default function ContactUsHero() {
         w-[1440px]
         md:w-[768px]
         lg:w-[1024px]
-        xl:w-[1440px]
+          xl:w-full
         h-[868px]
         md:h-[700px]
         lg:h-[780px]

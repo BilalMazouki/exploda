@@ -21,7 +21,7 @@ export default function Hero() {
         w-full
         md:w-[768px] 
         lg:w-[1024px] 
-        xl:w-[1440px]
+        xl:w-full
         h-[1300px]
         md:h-[900px]
         lg:h-[1100px]
