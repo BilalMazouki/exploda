@@ -29,31 +29,60 @@ export default function TeamHeader() {
         isolate
       "
     >
-      {/* Main title */}
-      <h1
-        className="
-          w-full
-          md:w-[600px]
-          lg:w-[750px]
-          xl:w-[876px]
-          h-auto
-          font-creato
-          font-medium
-          text-[64px]
-          md:text-[36px]
-          lg:text-[48px]
-          xl:text-[64px]
-          leading-[76px]
-          md:leading-[42px]
-          lg:leading-[56px]
-          xl:leading-[76px]
-          uppercase
-          text-[#1E1E1E]
-          z-0
-        "
-      >
-        Creative mind behind exploda
-      </h1>
+     {/* Main title */}
+<div
+  className="
+    font-creato
+    uppercase
+    text-[#1E1E1E]
+    z-0
+  "
+>
+  {/* Line 1 */}
+  <h1
+    className=" pl-28
+      w-full
+      md:w-[600px]
+      lg:w-[750px]
+      xl:w-[876px]
+      font-medium
+      text-[64px]
+      md:text-[36px]
+      lg:text-[48px]
+      xl:text-[64px]
+      leading-[76px]
+      md:leading-[42px]
+      lg:leading-[56px]
+      xl:leading-[76px]
+    "
+  >
+    Creative mind
+  </h1>
+
+  {/* Line 2 */}
+  <h1
+    className="
+      w-full
+      md:w-[600px]
+      lg:w-[750px]
+      xl:w-[876px]
+      font-medium
+      text-[64px]
+      md:text-[36px]
+      lg:text-[48px]
+      xl:text-[64px]
+      leading-[76px]
+      md:leading-[42px]
+      lg:leading-[56px]
+      xl:leading-[76px]
+    "
+  >
+    Behind{" "}
+    <span className="font-light italic">
+      Exploda
+    </span>
+  </h1>
+</div>
 
       {/* OUR TEAM label */}
       <span

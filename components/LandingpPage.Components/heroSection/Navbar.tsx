@@ -158,7 +158,7 @@ export default function Navbar() {
               text-transparent
             "
           >
-            GET IN TOUCH
+Book free consultaion
           </span>
         </div>
 

@@ -18,7 +18,7 @@ export default function Hero() {
       */}
       <div className="
         relative 
-        w-[1440px]
+        w-full
         md:w-[768px] 
         lg:w-[1024px] 
         xl:w-[1440px]
